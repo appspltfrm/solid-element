@@ -1,1 +1,0 @@
-export { innerProp } from "./innerProp";

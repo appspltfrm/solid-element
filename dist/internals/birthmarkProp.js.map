@@ -1,0 +1,1 @@
+{"version":3,"file":"birthmarkProp.js","sources":["../../src/lib/internals/birthmarkProp.ts"],"sourcesContent":["export const birthmarkProp = Symbol(\"CustomElement\");\n"],"names":["birthmarkProp"],"mappings":"AAAa,MAAAA,IAAgB,OAAO,eAAe;"}

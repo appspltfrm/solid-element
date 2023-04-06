@@ -23,11 +23,7 @@ export default defineConfig({
         sourcemap: true,
         emptyOutDir: true,
         lib: {
-            entry: [
-                "elements/index.ts",
-                "utils/index.ts",
-                "reactivity/index.ts",
-            ],
+            entry: ["index.ts"],
             formats: ["es"]
         },
         rollupOptions: {
@@ -38,8 +34,6 @@ export default defineConfig({
                 chunkFileNames: "[name].js"
             },
             external: [
-                /component-register/,
-                /solid-element/,
                 /solid-js(\/{0,1}).*/,
                 /@co.mmons\/js-utils(\/{0,1}).*/
             ],

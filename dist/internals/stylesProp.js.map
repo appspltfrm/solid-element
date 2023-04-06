@@ -1,0 +1,1 @@
+{"version":3,"file":"stylesProp.js","sources":["../../src/lib/internals/stylesProp.ts"],"sourcesContent":["export const stylesProp = Symbol(\"CustomElement:styles\");\n"],"names":["stylesProp"],"mappings":"AAAa,MAAAA,IAAa,OAAO,sBAAsB;"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"renderRootProp.js","sources":["../../src/lib/internals/renderRootProp.ts"],"sourcesContent":["export const renderRootProp = Symbol(\"CustomElement:renderRoot\");\n"],"names":["renderRootProp"],"mappings":"AAAa,MAAAA,IAAiB,OAAO,0BAA0B;"}

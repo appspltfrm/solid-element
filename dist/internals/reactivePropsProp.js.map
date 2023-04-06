@@ -1,0 +1,1 @@
+{"version":3,"file":"reactivePropsProp.js","sources":["../../src/lib/internals/reactivePropsProp.ts"],"sourcesContent":["export const reactivePropsProp = Symbol(\"CustomElement:reactiveProps\");\n"],"names":["reactivePropsProp"],"mappings":"AAAa,MAAAA,IAAoB,OAAO,6BAA6B;"}
