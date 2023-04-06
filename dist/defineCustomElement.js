@@ -42,7 +42,7 @@ function W(e, i) {
         let o = super.template({
           children: r[h]
         });
-        return o && a[y] && this.renderRoot === this && (o = [(() => {
+        return o && a[y] && this.renderRoot !== this && (o = [(() => {
           const n = N();
           return v(() => n.innerHTML = a[y].join(`
 `)), n;

@@ -57,7 +57,7 @@ export function defineCustomElement(tagName: string, ElementClass: AssignableTyp
                 })
 
                 let template = super.template!({children: internalThis[childrenProp]});
-                if (template && internalClass[stylesProp] && this.renderRoot === this) {
+                if (template && internalClass[stylesProp] && this.renderRoot !== this) {
                     template = <><style innerHTML={internalClass[stylesProp].join("\n")}/>{template}</>
                 }
 
