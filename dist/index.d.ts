@@ -9,4 +9,3 @@ export { defineCustomElement } from "./defineCustomElement";
 export { defineComponent } from "./defineComponent";
 export { isCustomElement } from "./isCustomElement";
 export { reactive } from "./reactive";
-export { customElementBirthmark } from "./customElementBirthmark";

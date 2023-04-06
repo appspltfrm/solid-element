@@ -1,5 +1,5 @@
 import {AssignableType} from "@co.mmons/js-utils/core";
-import {customElementBirthmark} from "./customElementBirthmark";
+import {birthmarkProp} from "./internals/birthmarkProp";
 import {
     CustomElementDisconnectedCallback,
     CustomElementInterface,
@@ -44,7 +44,7 @@ export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
 
     // @ts-ignore
     const newClass = class CustomElementBase extends BaseType! implements CustomElementInterface {
-        static readonly [customElementBirthmark] = true;
+        static readonly [birthmarkProp] = true;
 
         constructor() {
             super();
@@ -77,7 +77,7 @@ export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
             Object.defineProperty(this, callbacksProp, {value: [], enumerable: false, writable: false});
         }
 
-        get [customElementBirthmark](): true {
+        get [birthmarkProp](): true {
             return true;
         }
 
