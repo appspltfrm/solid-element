@@ -2,7 +2,7 @@ var v = Object.defineProperty;
 var g = (r, e, o) => e in r ? v(r, e, { enumerable: !0, configurable: !0, writable: !0, value: o }) : r[e] = o;
 var d = (r, e, o) => (g(r, typeof e != "symbol" ? e + "" : e, o), o);
 import { globalStylesProp as j } from "./internals/globalStylesProp.js";
-import { birthmarkProp as m } from "./internals/birthmarkProp.js";
+import { customElementBirthmark as m } from "./customElementBirthmark.js";
 import { CallbackName as b } from "./internals/CallbackName.js";
 import { callbacksProp as P } from "./internals/callbacksProp.js";
 import { fromAttributeValue as w } from "./internals/fromAttributeValue.js";

@@ -1,6 +1,6 @@
 import {CustomElementInterface} from "./CustomElementInterface";
-import {birthmarkProp} from "./internals/birthmarkProp";
+import {customElementBirthmark} from "./customElementBirthmark";
 
 export function isCustomElement(element: HTMLElement): element is HTMLElement & CustomElementInterface {
-    return (element as any)[birthmarkProp] === true;
+    return (element as any)[customElementBirthmark] === true;
 }

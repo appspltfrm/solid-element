@@ -1,0 +1,1 @@
+{"version":3,"file":"customElementBirthmark.js","sources":["../src/lib/customElementBirthmark.ts"],"sourcesContent":["export const customElementBirthmark = Symbol(\"CustomElement\");\n"],"names":["customElementBirthmark"],"mappings":"AAAa,MAAAA,IAAyB,OAAO,eAAe;"}

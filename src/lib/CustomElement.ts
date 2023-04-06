@@ -7,7 +7,7 @@ import {
 import {CustomElementOptions} from "./CustomElementOptions";
 import {globalStylesProp} from "./internals/globalStylesProp";
 import {ReactivePropsMap} from "./internals/ReactivePropsMap";
-import {birthmarkProp} from "./internals/birthmarkProp";
+import {customElementBirthmark} from "./customElementBirthmark";
 import {CallbackName} from "./internals/CallbackName";
 import {callbacksProp} from "./internals/callbacksProp";
 import {InternalInstance} from "./internals/InternalInstance";
@@ -44,7 +44,7 @@ export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
 
     // @ts-ignore
     const newClass = class CustomElementBase extends BaseType! implements CustomElementInterface {
-        static readonly [birthmarkProp] = true;
+        static readonly [customElementBirthmark] = true;
 
         constructor() {
             super();
@@ -77,7 +77,7 @@ export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
             Object.defineProperty(this, callbacksProp, {value: [], enumerable: false, writable: false});
         }
 
-        get [birthmarkProp](): true {
+        get [customElementBirthmark](): true {
             return true;
         }
 

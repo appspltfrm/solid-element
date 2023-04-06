@@ -1,13 +1,13 @@
 import { AssignableType } from "@co.mmons/js-utils/core";
 import { CustomElementDisconnectedCallback, CustomElementPropertyValueChangeCallback } from "./CustomElementInterface";
 import { CustomElementOptions } from "./CustomElementOptions";
-import { birthmarkProp } from "./internals/birthmarkProp";
+import { customElementBirthmark } from "./customElementBirthmark";
 export declare function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): {
     new (): {
         readonly renderRoot: ShadowRoot | any;
         addDisconnectedCallback(callback: CustomElementDisconnectedCallback): () => void;
         addPropertyValueChangeCallback(callback: CustomElementPropertyValueChangeCallback): () => void;
-        readonly [birthmarkProp]: true;
+        readonly [customElementBirthmark]: true;
         accessKey: string;
         readonly accessKeyLabel: string;
         autocapitalize: string;
@@ -317,7 +317,7 @@ export declare function CustomElement<Type extends HTMLElement = HTMLElement>(ba
         blur(): void;
         focus(options?: FocusOptions | undefined): void;
     };
-    readonly [birthmarkProp]: true;
+    readonly [customElementBirthmark]: true;
     apply(this: Function, thisArg: any, argArray?: any): any;
     call(this: Function, thisArg: any, ...argArray: any[]): any;
     bind(this: Function, thisArg: any, ...argArray: any[]): any;

@@ -1,12 +1,12 @@
 import {JSXElement} from "solid-js";
-import {birthmarkProp} from "./internals/birthmarkProp";
+import {customElementBirthmark} from "./customElementBirthmark";
 
 export interface CustomElementInterface extends HTMLElement {
     connectedCallback?(): void;
     disconnectedCallback?(): void;
     template?(args: CustomElementTemplate): JSXElement;
     get renderRoot(): this | ShadowRoot;
-    readonly [birthmarkProp]: true;
+    readonly [customElementBirthmark]: true;
 
     addDisconnectedCallback(callback: CustomElementDisconnectedCallback): VoidFunction;
     addPropertyValueChangeCallback(callback: CustomElementPropertyValueChangeCallback): VoidFunction;

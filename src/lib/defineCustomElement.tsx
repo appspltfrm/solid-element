@@ -3,7 +3,7 @@ import {createRoot, createSignal} from "solid-js";
 import {insert} from "solid-js/web";
 import {CustomElementInterface} from "./CustomElementInterface";
 import {CustomElementReactivePropConfig} from "./CustomElementReactivePropConfig";
-import {birthmarkProp} from "./internals/birthmarkProp";
+import {customElementBirthmark} from "./customElementBirthmark";
 import {CallbackName} from "./internals/CallbackName";
 import {callbacksProp} from "./internals/callbacksProp";
 import {childrenProp} from "./internals/childrenProp";
@@ -17,7 +17,7 @@ import {stylesProp} from "./internals/stylesProp";
 import {toAttributeName} from "./internals/toAttributeName";
 import {toAttributeValue} from "./internals/toAttributeValue";
 
-export function defineCustomElement(tagName: string, ElementClass: AssignableType<HTMLElement & CustomElementInterface> & {[birthmarkProp]: true}) {
+export function defineCustomElement(tagName: string, ElementClass: AssignableType<HTMLElement & CustomElementInterface> & {[customElementBirthmark]: true}) {
 
     const internalClass = ElementClass as unknown as InternalClass;
 
