@@ -47,7 +47,7 @@ function N(r, l, g) {
       });
       return w(p, E(e == null ? void 0 : e.initialProps, n, {
         children: d ?? []
-      }), !1, !0), p;
+      }), !1, !1), p;
     }));
   return s.tagName = r, s.defineCustomElement = a, s;
 }

@@ -116,7 +116,7 @@ export function defineComponent(tagName: string, elementTypeOrOptions?: Assignab
                     return clone;
                 })
 
-                spread(el, mergeProps(options?.initialProps, props, {children: rawChildren ?? []}), false, true);
+                spread(el, mergeProps(options?.initialProps, props, {children: rawChildren ?? []}), false, false);
 
                 return el;
             })
