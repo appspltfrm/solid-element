@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/lib"],
+  "compilerOptions": {
+    "outDir": "dist",
+    "sourceMap": true,
+    "importHelpers": true,
+    "noEmit": false,
+    "declaration": true,
+    "rootDir": "src/lib",
+    "baseUrl": "src/",
+    "noImplicitAny": false
+  }
+}

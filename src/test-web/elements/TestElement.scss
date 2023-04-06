@@ -1,0 +1,10 @@
+:host {
+    .extra {
+        font-weight: bold;
+    }
+}
+
+test-element .extra {
+    font-weight: bold;
+    color: red;
+}

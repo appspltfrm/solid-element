@@ -1,0 +1,12 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+        "paths": {
+            "@appspltfrm/solidx": ["src/lib"],
+            "@appspltfrm/solidx/*": ["src/lib/*"]
+        },
+        "plugins": [
+            {"transform": "ts-transformer-keys/transformer"}
+        ]
+    }
+}
