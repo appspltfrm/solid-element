@@ -5,6 +5,7 @@ import {
     CustomElementPropertyValueChangeCallback
 } from "./CustomElementInterface";
 import {CustomElementOptions} from "./CustomElementOptions";
+import {globalStylesProp} from "./internals/globalStylesProp";
 import {ReactivePropsMap} from "./internals/ReactivePropsMap";
 import {birthmarkProp} from "./internals/birthmarkProp";
 import {CallbackName} from "./internals/CallbackName";
@@ -101,8 +102,13 @@ export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
     Object.defineProperty(newClass, reactivePropsProp, {value: options.reactive ?? {}});
     Object.defineProperty(newClass, renderRootProp, {value: options.renderRoot});
 
-    if (options.styles) {
-        Object.defineProperty(newClass, stylesProp, {value: options.styles});
+    if (options.styles && options.renderRoot !== "element") {
+        Object.defineProperty(newClass, stylesProp, {value: Array.isArray(options.styles) ? options.styles : [options.styles]});
+    }
+
+    if (options.globalStyles || (options.renderRoot === "element" && options.styles)) {
+        const styles = [options.globalStyles, options.styles].flat().filter(s => !!s);
+        Object.defineProperty(newClass, globalStylesProp, {value: styles});
     }
 
     Object.defineProperty(newClass.prototype, "template", {value: () => undefined});

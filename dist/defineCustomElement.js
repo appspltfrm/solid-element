@@ -1,30 +1,30 @@
-import { insert as _, template as A } from "solid-js/web";
-import { createRoot as v, createSignal as w } from "solid-js";
-import { CallbackName as P } from "./internals/CallbackName.js";
-import { callbacksProp as g } from "./internals/callbacksProp.js";
-import { childrenProp as y } from "./internals/childrenProp.js";
-import { fromAttributeValue as S } from "./internals/fromAttributeValue.js";
-import { preValuesProp as k } from "./internals/preValuesProp.js";
+import { effect as v, insert as w, template as S } from "solid-js/web";
+import { createRoot as A, createSignal as j } from "solid-js";
+import { CallbackName as g } from "./internals/CallbackName.js";
+import { callbacksProp as k } from "./internals/callbacksProp.js";
+import { childrenProp as h } from "./internals/childrenProp.js";
+import { fromAttributeValue as O } from "./internals/fromAttributeValue.js";
+import { globalStylesProp as P } from "./internals/globalStylesProp.js";
+import { preValuesProp as C } from "./internals/preValuesProp.js";
 import { reactivePropsProp as f } from "./internals/reactivePropsProp.js";
-import { renderRootProp as j } from "./internals/renderRootProp.js";
-import { stylesProp as p } from "./internals/stylesProp.js";
-import { toAttributeName as O } from "./internals/toAttributeName.js";
-import { toAttributeValue as $ } from "./internals/toAttributeValue.js";
-const x = /* @__PURE__ */ A("<style>");
-function d(e, n) {
-  if (!Object.prototype.hasOwnProperty.call(e, n))
+import { stylesProp as y } from "./internals/stylesProp.js";
+import { toAttributeName as $ } from "./internals/toAttributeName.js";
+import { toAttributeValue as x } from "./internals/toAttributeValue.js";
+const N = /* @__PURE__ */ S("<style>");
+function u(e, i) {
+  if (!Object.prototype.hasOwnProperty.call(e, i))
     throw new TypeError("attempted to use private field on non-instance");
   return e;
 }
-var N = 0;
-function R(e) {
-  return "__private_" + N++ + "_" + e;
+var R = 0;
+function E(e) {
+  return "__private_" + R++ + "_" + e;
 }
-function U(e, n) {
+function W(e, i) {
   var s;
-  const i = n, u = (s = /* @__PURE__ */ R("initialized"), class extends n {
+  const a = i, l = (s = /* @__PURE__ */ E("initialized"), class extends i {
     static get observedAttributes() {
-      const r = i[f];
+      const r = a[f];
       return Object.values(r).map((t) => t.attribute);
     }
     constructor() {
@@ -35,88 +35,84 @@ function U(e, n) {
     }
     connectedCallback() {
       const r = this;
-      d(this, s)[s] || (d(this, s)[s] = !0, V(r, i), r[k] = void 0, super.connectedCallback(), v((t) => {
+      u(this, s)[s] || (u(this, s)[s] = !0, F(r, a), r[C] = void 0, super.connectedCallback(), A((t) => {
         this.addDisconnectedCallback(() => {
           this.renderRoot.textContent = "", t();
         });
         let o = super.template({
-          children: r[y]
+          children: r[h]
         });
-        if (o && i[p] && this.renderRoot === this) {
-          const a = Array.isArray(i[p]) ? i[p].join(`
-`) : i[p];
-          o = [(() => {
-            const c = x();
-            return c.innerHTML = a, c;
-          })(), o];
-        }
-        return _(this.renderRoot, o);
-      }, E(this)));
+        return o && a[y] && this.renderRoot === this && (o = [(() => {
+          const n = N();
+          return v(() => n.innerHTML = a[y].join(`
+`)), n;
+        })(), o]), w(this.renderRoot, o);
+      }, T(this)));
     }
     async disconnectedCallback() {
       if (await Promise.resolve(), this.isConnected)
         return;
-      const r = this[g];
+      const r = this[k];
       let t = r.pop();
       for (; t; )
-        t[0] === P.disconnected && t[1](this), t = r.pop();
-      super.disconnectedCallback(), d(this, s)[s] = !1;
+        t[0] === g.disconnected && t[1](this), t = r.pop();
+      super.disconnectedCallback(), u(this, s)[s] = !1;
     }
     attributeChangedCallback(r, t, o) {
-      if (!d(this, s)[s])
+      if (!u(this, s)[s])
         return;
-      const a = T(r, i);
-      o == null && !this[a[0]] || (this[a[0]] = S(o, a[1]));
+      const n = V(r, a);
+      o == null && !this[n[0]] || (this[n[0]] = O(o, n[1]));
     }
-  }), m = n[f];
-  for (let [l, r] of Object.entries(m))
-    r.attribute || (r.attribute = O(l));
-  if (i[j] === "element" && i[p]) {
-    for (const l of Array.isArray(i[p]) ? i[p] : [i[p]])
-      if (l) {
+  }), d = i[f];
+  for (let [c, r] of Object.entries(d))
+    r.attribute || (r.attribute = $(c));
+  if (a[P]) {
+    for (const c of a[P])
+      if (c) {
         const r = document.head ?? document.querySelector("head"), t = document.createElement("style");
-        t.appendChild(document.createTextNode(l)), r.appendChild(t);
+        t.appendChild(document.createTextNode(c)), r.appendChild(t);
       }
   }
-  customElements.define(e, u);
+  customElements.define(e, l);
 }
-function E(e) {
+function T(e) {
   if (e.assignedSlot && e.assignedSlot._$owner)
     return e.assignedSlot._$owner;
-  let n = e.parentNode;
-  for (; n && !n._$owner && !(n.assignedSlot && n.assignedSlot._$owner); )
-    n = n.parentNode;
-  return n && n.assignedSlot ? n.assignedSlot._$owner : e._$owner;
+  let i = e.parentNode;
+  for (; i && !i._$owner && !(i.assignedSlot && i.assignedSlot._$owner); )
+    i = i.parentNode;
+  return i && i.assignedSlot ? i.assignedSlot._$owner : e._$owner;
 }
-function T(e, n) {
-  const s = n[f];
-  return Object.entries(s).find(([i, u]) => i === e || u.attribute === e);
+function V(e, i) {
+  const s = i[f];
+  return Object.entries(s).find(([a, l]) => a === e || l.attribute === e);
 }
-function V(e, n) {
-  const s = n[f], i = [y, ...Object.keys(s ?? {})], u = e[k];
-  function m(r, t, o) {
-    const a = e[g];
-    for (let c = 0; c < a.length; c++)
-      if (a[c][0] === P.propertyValueChange)
+function F(e, i) {
+  const s = i[f], a = [h, ...Object.keys(s ?? {})], l = e[C];
+  function d(r, t, o) {
+    const n = e[k];
+    for (let p = 0; p < n.length; p++)
+      if (n[p][0] === g.propertyValueChange)
         try {
-          a[c][1](e, r, t, o);
-        } catch (b) {
-          console.warn("CustomElement property value change callback error", b);
+          n[p][1](e, r, t, o);
+        } catch (m) {
+          console.warn("CustomElement property value change callback error", m);
         }
   }
-  function l(r, t) {
+  function c(r, t) {
     const o = r.attribute;
-    t = $(t, r), t == null || t === !1 ? e.removeAttribute(o) : e.getAttribute(o) !== t && e.setAttribute(o, t);
+    t = x(t, r), t == null || t === !1 ? e.removeAttribute(o) : e.getAttribute(o) !== t && e.setAttribute(o, t);
   }
-  for (let r = 0; r < i.length; r++) {
-    const t = i[r], o = s[t];
-    let a;
-    u && t in u ? a = u[t] : a = e[t], o != null && o.reflect && l(o, a);
-    const [c, b] = w(a);
+  for (let r = 0; r < a.length; r++) {
+    const t = a[r], o = s[t];
+    let n;
+    l && t in l ? n = l[t] : n = e[t], o != null && o.reflect && c(o, n);
+    const [p, m] = j(n);
     Object.defineProperty(e, t, {
-      get: c,
-      set(h) {
-        b((C) => (t !== y && (o != null && o.reflect && l(o, h), m(t, h, C)), h));
+      get: p,
+      set(b) {
+        m((_) => (t !== h && (o != null && o.reflect && c(o, b), d(t, b, _)), b));
       },
       enumerable: !0,
       configurable: !0
@@ -124,6 +120,6 @@ function V(e, n) {
   }
 }
 export {
-  U as defineCustomElement
+  W as defineCustomElement
 };
 //# sourceMappingURL=defineCustomElement.js.map

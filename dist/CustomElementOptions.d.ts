@@ -5,4 +5,5 @@ export interface CustomElementOptions extends Partial<ShadowRootInit> {
     };
     renderRoot?: "shadow" | "element";
     styles?: string | string[];
+    globalStyles?: string | string[];
 }

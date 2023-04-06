@@ -8,11 +8,11 @@ import {CallbackName} from "./internals/CallbackName";
 import {callbacksProp} from "./internals/callbacksProp";
 import {childrenProp} from "./internals/childrenProp";
 import {fromAttributeValue} from "./internals/fromAttributeValue";
+import {globalStylesProp} from "./internals/globalStylesProp";
 import {InternalClass} from "./internals/InternalClass";
 import {InternalInstance} from "./internals/InternalInstance";
 import {preValuesProp} from "./internals/preValuesProp";
 import {reactivePropsProp} from "./internals/reactivePropsProp";
-import {renderRootProp} from "./internals/renderRootProp";
 import {stylesProp} from "./internals/stylesProp";
 import {toAttributeName} from "./internals/toAttributeName";
 import {toAttributeValue} from "./internals/toAttributeValue";
@@ -58,8 +58,7 @@ export function defineCustomElement(tagName: string, ElementClass: AssignableTyp
 
                 let template = super.template!({children: internalThis[childrenProp]});
                 if (template && internalClass[stylesProp] && this.renderRoot === this) {
-                    const styles = Array.isArray(internalClass[stylesProp]) ? internalClass[stylesProp].join("\n") : internalClass[stylesProp];
-                    template = <><style innerHTML={styles}/>{template}</>
+                    template = <><style innerHTML={internalClass[stylesProp].join("\n")}/>{template}</>
                 }
 
                 return insert(this.renderRoot, template);
@@ -115,8 +114,8 @@ export function defineCustomElement(tagName: string, ElementClass: AssignableTyp
         }
     }
 
-    if (internalClass[renderRootProp] === "element" && internalClass[stylesProp]) {
-        for (const css of !Array.isArray(internalClass[stylesProp]) ? [internalClass[stylesProp]] : internalClass[stylesProp]) {
+    if (internalClass[globalStylesProp]) {
+        for (const css of internalClass[globalStylesProp]) {
             if (css) {
                 const head = document.head ?? document.querySelector("head");
                 const style = document.createElement("style")

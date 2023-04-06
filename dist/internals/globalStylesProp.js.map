@@ -1,0 +1,1 @@
+{"version":3,"file":"globalStylesProp.js","sources":["../../src/lib/internals/globalStylesProp.ts"],"sourcesContent":["export const globalStylesProp = Symbol(\"CustomElement:globalStyles\");\n"],"names":["globalStylesProp"],"mappings":"AAAa,MAAAA,IAAmB,OAAO,4BAA4B;"}
