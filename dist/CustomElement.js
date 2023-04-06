@@ -1,11 +1,11 @@
 var v = Object.defineProperty;
 var g = (r, e, o) => e in r ? v(r, e, { enumerable: !0, configurable: !0, writable: !0, value: o }) : r[e] = o;
 var d = (r, e, o) => (g(r, typeof e != "symbol" ? e + "" : e, o), o);
-import { globalStylesProp as j } from "./internals/globalStylesProp.js";
 import { customElementBirthmark as m } from "./customElementBirthmark.js";
 import { CallbackName as b } from "./internals/CallbackName.js";
 import { callbacksProp as P } from "./internals/callbacksProp.js";
-import { fromAttributeValue as w } from "./internals/fromAttributeValue.js";
+import { fromAttributeValue as j } from "./internals/fromAttributeValue.js";
+import { globalStylesProp as w } from "./internals/globalStylesProp.js";
 import { preValuesProp as C } from "./internals/preValuesProp.js";
 import { reactivePropsProp as y } from "./internals/reactivePropsProp.js";
 import { renderRootProp as O } from "./internals/renderRootProp.js";
@@ -27,7 +27,7 @@ function I(r, e) {
       }
       const h = Object.getPrototypeOf(this).constructor[y];
       for (const [c, l] of Object.entries(h))
-        !a.includes(c) && this.hasAttribute(l.attribute) && (n[c] = w(this.getAttribute(l.attribute), l), u = !0);
+        !a.includes(c) && this.hasAttribute(l.attribute) && (n[c] = j(this.getAttribute(l.attribute), l), u = !0);
       u && Object.defineProperty(this, C, { value: n, enumerable: !1, writable: !0 }), Object.defineProperty(this, P, { value: [], enumerable: !1, writable: !1 });
     }
     get [(s = m, m)]() {
@@ -45,7 +45,7 @@ function I(r, e) {
   }, d(i, s, !0), i);
   if (Object.defineProperty(t, y, { value: e.reactive ?? {} }), Object.defineProperty(t, O, { value: e.renderRoot }), e.styles && e.renderRoot !== "element" && Object.defineProperty(t, R, { value: Array.isArray(e.styles) ? e.styles : [e.styles] }), e.globalStyles || e.renderRoot === "element" && e.styles) {
     const f = [e.globalStyles, e.styles].flat().filter((a) => !!a);
-    Object.defineProperty(t, j, { value: f });
+    Object.defineProperty(t, w, { value: f });
   }
   return Object.defineProperty(t.prototype, "template", { value: () => {
   } }), Object.defineProperty(t.prototype, "connectedCallback", { value: () => {

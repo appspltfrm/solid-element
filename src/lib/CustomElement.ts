@@ -1,23 +1,23 @@
 import {AssignableType} from "@co.mmons/js-utils/core";
+import {customElementBirthmark} from "./customElementBirthmark";
 import {
     CustomElementDisconnectedCallback,
     CustomElementInterface,
     CustomElementPropertyValueChangeCallback
 } from "./CustomElementInterface";
 import {CustomElementOptions} from "./CustomElementOptions";
-import {globalStylesProp} from "./internals/globalStylesProp";
-import {ReactivePropsMap} from "./internals/ReactivePropsMap";
-import {customElementBirthmark} from "./customElementBirthmark";
 import {CallbackName} from "./internals/CallbackName";
 import {callbacksProp} from "./internals/callbacksProp";
-import {InternalInstance} from "./internals/InternalInstance";
 import {fromAttributeValue} from "./internals/fromAttributeValue";
+import {globalStylesProp} from "./internals/globalStylesProp";
+import {InternalInstance} from "./internals/InternalInstance";
 import {preValuesProp} from "./internals/preValuesProp";
+import {ReactivePropsMap} from "./internals/ReactivePropsMap";
 import {reactivePropsProp} from "./internals/reactivePropsProp";
 import {renderRootProp} from "./internals/renderRootProp";
 import {stylesProp} from "./internals/stylesProp";
 
-export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions) {
+export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): {new (): (Type & CustomElementInterface)} {
 
     // @ts-ignore
     const BaseType: AssignableType<Type> = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : HTMLElement;
@@ -115,7 +115,7 @@ export function CustomElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
     Object.defineProperty(newClass.prototype, "connectedCallback", {value: () => undefined});
     Object.defineProperty(newClass.prototype, "disconnectedCallback", {value: () => undefined});
 
-    return newClass;
+    return newClass as any;
 }
 
 function addCallback(element: HTMLElement, name: CallbackName, callback: (...args: any[]) => any) {
