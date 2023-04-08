@@ -1,5 +1,5 @@
 import {
-    CustomElement,
+    customElement,
     CustomElementJSXIntrinsic,
     CustomElementTemplate,
     defineComponent,
@@ -25,7 +25,7 @@ export interface TestElementProps {
     readonly?: boolean;
 }
 
-export class TestElement extends CustomElement({renderRoot: "element", styles}) implements TestElementProps {
+export class TestElement extends customElement({renderRoot: "element", styles}) implements TestElementProps {
 
     @reactive()
     state!: any;

@@ -1,7 +1,7 @@
-import {CustomElement, CustomElementTemplate, defineComponent} from "@appspltfrm/solidx";
+import {customElement, CustomElementTemplate, defineComponent} from "@appspltfrm/solidx";
 import {onCleanup} from "solid-js";
 
-export const TestNoDecorator = defineComponent("test-element-no-decorator", class extends CustomElement({
+export const TestNoDecorator = defineComponent("test-element-no-decorator", class extends customElement({
     reactive: {test: true, testAProp: true}
 }) {
 

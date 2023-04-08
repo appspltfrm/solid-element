@@ -1,12 +1,12 @@
 import {
-    CustomElement,
+    customElement,
     CustomElementJSXIntrinsic,
     CustomElementTemplate,
     defineComponent
 } from "@appspltfrm/solidx";
 import {JSXElement} from "solid-js";
 
-export class TestLightElement extends CustomElement({renderRoot: "element"}) {
+export class TestLightElement extends customElement({renderRoot: "element"}) {
 
     template({children}: CustomElementTemplate): JSXElement {
         return <>{children}</>;

@@ -1,12 +1,12 @@
 import { AssignableType } from "@co.mmons/js-utils/core";
 import type { JSX } from "solid-js";
 import { Component } from "solid-js";
-import { CustomElementInterface } from "./CustomElementInterface";
+import { CustomElement } from "./customElement";
 import { CustomElementJSXAttributes } from "./CustomElementJSXAttributes";
 import { CustomElementJSXEvents } from "./CustomElementJSXEvents";
 import { CustomElementProps } from "./CustomElementProps";
 type DefineElementFn = () => void;
-export type CustomElementComponent<TagName extends string, ElementType extends CustomElementInterface, ComponentProps = CustomElementProps<ElementType>> = Component<ComponentProps & CustomElementJSXAttributes> & {
+export type CustomElementComponent<TagName extends string, ElementType extends CustomElement, ComponentProps = CustomElementProps<ElementType>> = Component<ComponentProps & CustomElementJSXAttributes> & {
     tagName: TagName;
     defineCustomElement(): void;
 };
@@ -27,7 +27,7 @@ export interface ElementComponentOptions {
         [key: string]: any;
     }) => void;
 }
-export declare function defineComponent<TagName extends string, ElementType extends CustomElementInterface, Props = CustomElementProps<ElementType>, Events extends {
+export declare function defineComponent<TagName extends string, ElementType extends CustomElement, Props = CustomElementProps<ElementType>, Events extends {
     [P in keyof Events]: Event;
 } = any>(tagName: TagName, elementType: AssignableType<ElementType>, options?: CustomElementComponentOptions<Props, Events>): CustomElementComponent<TagName, ElementType, Props & CustomElementJSXEvents<ElementType, Events> & Omit<JSX.HTMLAttributes<ElementType>, keyof CustomElementJSXEvents<ElementType, Events>>>;
 export declare function defineComponent<TagName extends string, ComponentElement extends HTMLElement, Props>(tagName: TagName, elementType: ComponentElement, options?: ElementComponentOptions): ElementComponent<TagName, ComponentElement, Props>;

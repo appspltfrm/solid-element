@@ -1,9 +1,9 @@
-import {CustomElement, CustomElementTemplate, defineComponent} from "@appspltfrm/solidx";
+import {customElement, CustomElementTemplate, defineComponent} from "@appspltfrm/solidx";
 import {JSXElement} from "solid-js";
 
-export class TestShadowElement extends CustomElement {
+export class TestShadowElement extends customElement() {
 
-    template({children}: CustomElementTemplate<this>): JSXElement {
+    template({children}: CustomElementTemplate): JSXElement {
         return <slot/>;
     }
 }

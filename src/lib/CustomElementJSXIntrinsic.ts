@@ -9,5 +9,5 @@ type KebabCasePropName<T extends string, A extends string = ""> = T extends `${i
 // export type ElementJSXIntrinsic<Element extends CustomElement, Props, Events extends {[P in keyof Events]: Event} = any> =
 //     KebabCasedProperties<Props> & JSX.HTMLAttributes<Element> & ElementEventsProps<Element, Events>;
 
-export type CustomElementJSXIntrinsic<Element extends CustomElementInterface, Props = CustomElementProps<Element>, Events extends {[P in keyof Events]: Event} = any> =
+export type CustomElementJSXIntrinsic<Element extends CustomElement, Props = CustomElementProps<Element>, Events extends {[P in keyof Events]: Event} = any> =
     JSX.HTMLAttributes<Element> & {[P in keyof Props as (P extends string ? KebabCasePropName<P> : never)]: Props[P]} & CustomElementJSXEvents<Element, Events> & CustomElementJSXAttributes;

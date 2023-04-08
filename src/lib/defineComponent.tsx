@@ -2,6 +2,7 @@ import {AssignableType} from "@co.mmons/js-utils/core";
 import type {JSX, ParentProps} from "solid-js";
 import {children, Component, createMemo, mergeProps, sharedConfig, splitProps} from "solid-js";
 import {getNextElement, spread} from "solid-js/web";
+import {CustomElement} from "./customElement";
 import {CustomElementInterface} from "./CustomElementInterface";
 import {CustomElementJSXAttributes} from "./CustomElementJSXAttributes";
 import {CustomElementJSXEvents} from "./CustomElementJSXEvents";
@@ -13,9 +14,9 @@ import {reactivePropsProp} from "./internals/reactivePropsProp";
 
 type DefineElementFn = () => void;
 
-export type CustomElementComponent<TagName extends string, ElementType extends CustomElementInterface, ComponentProps = CustomElementProps<ElementType>> = Component<ComponentProps & CustomElementJSXAttributes> & {
+export type CustomElementComponent<TagName extends string, ElementType extends CustomElement, ComponentProps = CustomElementProps<ElementType>> = Component<ComponentProps & CustomElementJSXAttributes> & {
     tagName: TagName;
-    defineCustomElement(): void
+    defineCustomElement(): void;
 }
 
 export interface CustomElementComponentOptions<Props = any, Events = any> {
@@ -31,7 +32,7 @@ export interface ElementComponentOptions {
     propsHandler?: (props: {[key: string]: any}) => void;
 }
 
-export function defineComponent<TagName extends string, ElementType extends CustomElementInterface, Props = CustomElementProps<ElementType>, Events extends {[P in keyof Events]: Event} = any>(tagName: TagName, elementType: AssignableType<ElementType>, options?: CustomElementComponentOptions<Props, Events>): CustomElementComponent<TagName, ElementType, Props & CustomElementJSXEvents<ElementType, Events> & Omit<JSX.HTMLAttributes<ElementType>, keyof CustomElementJSXEvents<ElementType, Events>>>;
+export function defineComponent<TagName extends string, ElementType extends CustomElement, Props = CustomElementProps<ElementType>, Events extends {[P in keyof Events]: Event} = any>(tagName: TagName, elementType: AssignableType<ElementType>, options?: CustomElementComponentOptions<Props, Events>): CustomElementComponent<TagName, ElementType, Props & CustomElementJSXEvents<ElementType, Events> & Omit<JSX.HTMLAttributes<ElementType>, keyof CustomElementJSXEvents<ElementType, Events>>>;
 
 export function defineComponent<TagName extends string, ComponentElement extends HTMLElement, Props>(tagName: TagName, elementType: ComponentElement, options?: ElementComponentOptions): ElementComponent<TagName, ComponentElement, Props>;
 

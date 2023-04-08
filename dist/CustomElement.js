@@ -1,17 +1,17 @@
 var v = Object.defineProperty;
 var g = (r, e, o) => e in r ? v(r, e, { enumerable: !0, configurable: !0, writable: !0, value: o }) : r[e] = o;
 var d = (r, e, o) => (g(r, typeof e != "symbol" ? e + "" : e, o), o);
-import { birthmarkProp as m } from "./internals/birthmarkProp.js";
+import { customElementBirthmark as m } from "./customElementBirthmark.js";
 import { CallbackName as b } from "./internals/CallbackName.js";
 import { callbacksProp as P } from "./internals/callbacksProp.js";
 import { fromAttributeValue as j } from "./internals/fromAttributeValue.js";
 import { globalStylesProp as w } from "./internals/globalStylesProp.js";
-import { preValuesProp as C } from "./internals/preValuesProp.js";
+import { preValuesProp as O } from "./internals/preValuesProp.js";
 import { reactivePropsProp as y } from "./internals/reactivePropsProp.js";
-import { renderRootProp as O } from "./internals/renderRootProp.js";
+import { renderRootProp as C } from "./internals/renderRootProp.js";
 import { stylesProp as R } from "./internals/stylesProp.js";
 function I(r, e) {
-  var s, i;
+  var c, i;
   const o = typeof r == "function" ? r : HTMLElement;
   if (typeof r == "object" && (e = r), e || (e = {}), e.renderRoot || (e.renderRoot = "shadow"), e.reactive)
     for (const f of Object.keys(e.reactive))
@@ -19,18 +19,18 @@ function I(r, e) {
   const t = (i = class extends o {
     constructor() {
       super();
-      const a = Object.getOwnPropertyNames(this).filter((c) => c !== "_$owner"), n = {};
+      const a = Object.getOwnPropertyNames(this).filter((s) => s !== "_$owner"), n = {};
       let u = !1;
-      for (const c of a) {
-        const l = Object.getOwnPropertyDescriptor(this, c);
-        l != null && l.writable && (n[c] = l.value, u = !0);
+      for (const s of a) {
+        const l = Object.getOwnPropertyDescriptor(this, s);
+        l != null && l.writable && (n[s] = l.value, u = !0);
       }
       const h = Object.getPrototypeOf(this).constructor[y];
-      for (const [c, l] of Object.entries(h))
-        !a.includes(c) && this.hasAttribute(l.attribute) && (n[c] = j(this.getAttribute(l.attribute), l), u = !0);
-      u && Object.defineProperty(this, C, { value: n, enumerable: !1, writable: !0 }), Object.defineProperty(this, P, { value: [], enumerable: !1, writable: !1 });
+      for (const [s, l] of Object.entries(h))
+        !a.includes(s) && this.hasAttribute(l.attribute) && (n[s] = j(this.getAttribute(l.attribute), l), u = !0);
+      u && Object.defineProperty(this, O, { value: n, enumerable: !1, writable: !0 }), Object.defineProperty(this, P, { value: [], enumerable: !1, writable: !1 });
     }
-    get [(s = m, m)]() {
+    get [(c = m, m)]() {
       return !0;
     }
     get renderRoot() {
@@ -42,8 +42,8 @@ function I(r, e) {
     addPropertyValueChangeCallback(a) {
       return p(this, b.propertyValueChange, a);
     }
-  }, d(i, s, !0), i);
-  if (Object.defineProperty(t, y, { value: e.reactive ?? {} }), Object.defineProperty(t, O, { value: e.renderRoot }), e.styles && e.renderRoot !== "element" && Object.defineProperty(t, R, { value: Array.isArray(e.styles) ? e.styles : [e.styles] }), e.globalStyles || e.renderRoot === "element" && e.styles) {
+  }, d(i, c, !0), i);
+  if (Object.defineProperty(t, y, { value: e.reactive ?? {} }), Object.defineProperty(t, C, { value: e.renderRoot }), e.styles && e.renderRoot !== "element" && Object.defineProperty(t, R, { value: Array.isArray(e.styles) ? e.styles : [e.styles] }), e.globalStyles || e.renderRoot === "element" && e.styles) {
     const f = [e.globalStyles, e.styles].flat().filter((a) => !!a);
     Object.defineProperty(t, w, { value: f });
   }
@@ -54,12 +54,12 @@ function I(r, e) {
 }
 function p(r, e, o) {
   const t = r[P];
-  return t.find((s) => s[0] === e && s[1] === o) || t.push([e, o]), () => {
-    const s = t.findIndex((i) => i[0] === e && i[1] === o);
-    s > -1 && t.splice(s, 1);
+  return t.find((c) => c[0] === e && c[1] === o) || t.push([e, o]), () => {
+    const c = t.findIndex((i) => i[0] === e && i[1] === o);
+    c > -1 && t.splice(c, 1);
   };
 }
 export {
-  I as CustomElement
+  I as customElement
 };
-//# sourceMappingURL=CustomElement.js.map
+//# sourceMappingURL=customElement.js.map

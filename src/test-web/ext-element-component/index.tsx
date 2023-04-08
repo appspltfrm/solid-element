@@ -3,7 +3,7 @@ import type {JSX} from "@ionic/core/components";
 import {defineCustomElement} from "@ionic/core/components/ion-button";
 import {onCleanup, ParentProps} from "solid-js";
 
-const ExtTest = defineElementComponent<"ion-button", HTMLIonButtonElement, ParentProps<JSX.IonButton>>("ion-button", {define: defineCustomElement});
+const ExtTest = defineComponent<"ion-button", HTMLIonButtonElement, ParentProps<JSX.IonButton>>("ion-button", {define: defineCustomElement});
 
 const OtherComp = () => {
     onCleanup(() => console.log("cleanup"));
