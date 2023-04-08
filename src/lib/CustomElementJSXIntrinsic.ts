@@ -1,6 +1,5 @@
 import {JSX} from "solid-js/h/jsx-runtime";
-import {CustomElement} from "./CustomElement";
-import {CustomElementInterface} from "./CustomElementInterface";
+import {CustomElement} from "./customElement";
 import {CustomElementJSXAttributes} from "./CustomElementJSXAttributes";
 import {CustomElementJSXEvents} from "./CustomElementJSXEvents";
 import {CustomElementProps} from "./CustomElementProps";

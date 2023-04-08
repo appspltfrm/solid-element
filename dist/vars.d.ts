@@ -2,7 +2,7 @@ import { Signal } from "solid-js";
 import { createStore, Store } from "solid-js/store";
 import { Accessor, EffectFunction, MemoOptions, NoInfer } from "solid-js/types/reactive/signal";
 import { Observer, Unsubscribable } from "type-fest";
-import { CustomElement } from "./CustomElement";
+import { CustomElement } from "./customElement";
 type VarName = string | symbol;
 export interface ObservableLike<ValueType = unknown> {
     subscribe(observer?: Partial<Observer<ValueType>>): Unsubscribable;
