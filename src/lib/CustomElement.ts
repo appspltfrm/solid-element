@@ -17,9 +17,9 @@ import {reactivePropsProp} from "./internals/reactivePropsProp";
 import {renderRootProp} from "./internals/renderRootProp";
 import {stylesProp} from "./internals/stylesProp";
 
-export type CustomElement<Type extends HTMLElement = HTMLElement> = Type & CustomElementInterface;
+export type CustomElement = HTMLElement & CustomElementInterface;
 
-export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): {new (): CustomElement<Type & CustomElementInterface>} & CustomElementBirthmark {
+export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): {new (): Type & CustomElementInterface} & CustomElementBirthmark {
 
     // @ts-ignore
     const BaseType: AssignableType<Type> = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : HTMLElement;

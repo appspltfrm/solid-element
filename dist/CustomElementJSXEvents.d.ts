@@ -1,5 +1,6 @@
 import { JSX } from "solid-js/h/jsx-runtime";
-export type CustomElementJSXEvents<Element extends HTMLElement, Type extends {
+import { CustomElement } from "./customElement";
+export type CustomElementJSXEvents<Element extends CustomElement, Type extends {
     [P in keyof Type]: Event;
 }> = {
     [P in keyof Type as `on${Capitalize<string & P>}`]?: JSX.EventHandlerUnion<Element, Type[P]>;

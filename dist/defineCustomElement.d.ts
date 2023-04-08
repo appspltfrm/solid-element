@@ -1,6 +1,4 @@
 import { AssignableType } from "@co.mmons/js-utils/core";
-import { CustomElementInterface } from "./CustomElementInterface";
-import { customElementBirthmark } from "./customElementBirthmark";
-export declare function defineCustomElement(tagName: string, ElementClass: AssignableType<HTMLElement & CustomElementInterface> & {
-    [customElementBirthmark]: true;
-}): void;
+import { CustomElement } from "./customElement";
+import { CustomElementBirthmark } from "./customElementBirthmark";
+export declare function defineCustomElement(tagName: string, ElementClass: AssignableType<CustomElement> & CustomElementBirthmark): void;
