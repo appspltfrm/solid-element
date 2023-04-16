@@ -1,34 +1,36 @@
-import { createElementMemo as m, createElementSignal as l, createElementStore as n, deleteElementSignal as o, deleteElementStore as r, deleteElementVar as E, getElementMemo as a, getElementSignal as S, getElementStore as i, getElementVar as s, loadElementSignal as g, loadElementStore as f, setElementSignal as p, setElementStore as d, setElementVar as u, useElementMemo as x, useElementSignal as c, useElementStore as C } from "./vars.js";
+import { createElementMemo as m, createElementSignal as l, createElementStore as o, deleteElementSignal as n, deleteElementStore as r, deleteElementVar as E, getElementMemo as a, getElementSignal as s, getElementStore as S, getElementVar as i, loadElementSignal as f, loadElementStore as g, setElementSignal as p, setElementStore as u, setElementVar as x, useElementMemo as c, useElementSignal as d, useElementStore as C } from "./vars.js";
 import { customElement as V } from "./customElement.js";
-import { defineCustomElement as k } from "./defineCustomElement.js";
-import { defineComponent as B } from "./defineComponent.js";
-import { isCustomElement as j } from "./isCustomElement.js";
-import { reactive as w } from "./reactive.js";
-import { customElementBirthmark as z } from "./customElementBirthmark.js";
+import { defineCustomElement as h } from "./defineCustomElement.js";
+import { defineComponent as v } from "./defineComponent.js";
+import { isCustomElement as B } from "./isCustomElement.js";
+import { reactive as j } from "./reactive.js";
+import { customElementBirthmark as w } from "./customElementBirthmark.js";
+import { customElementGlobalStyles as A } from "./customElementGlobalStyles.js";
 export {
   m as createElementMemo,
   l as createElementSignal,
-  n as createElementStore,
+  o as createElementStore,
   V as customElement,
-  z as customElementBirthmark,
-  B as defineComponent,
-  k as defineCustomElement,
-  o as deleteElementSignal,
+  w as customElementBirthmark,
+  A as customElementGlobalStyles,
+  v as defineComponent,
+  h as defineCustomElement,
+  n as deleteElementSignal,
   r as deleteElementStore,
   E as deleteElementVar,
   a as getElementMemo,
-  S as getElementSignal,
-  i as getElementStore,
-  s as getElementVar,
-  j as isCustomElement,
-  g as loadElementSignal,
-  f as loadElementStore,
-  w as reactive,
+  s as getElementSignal,
+  S as getElementStore,
+  i as getElementVar,
+  B as isCustomElement,
+  f as loadElementSignal,
+  g as loadElementStore,
+  j as reactive,
   p as setElementSignal,
-  d as setElementStore,
-  u as setElementVar,
-  x as useElementMemo,
-  c as useElementSignal,
+  u as setElementStore,
+  x as setElementVar,
+  c as useElementMemo,
+  d as useElementSignal,
   C as useElementStore
 };
 //# sourceMappingURL=index.js.map
