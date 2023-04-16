@@ -16,6 +16,7 @@ type DefineElementFn = () => void;
 
 export type CustomElementComponent<TagName extends string, ElementType extends CustomElement, ComponentProps = CustomElementProps<ElementType>> = Component<ComponentProps & CustomElementJSXAttributes> & {
     tagName: TagName;
+    element: ElementType;
     defineCustomElement(): void;
 }
 
@@ -126,6 +127,10 @@ export function defineComponent(tagName: string, elementTypeOrOptions?: Assignab
 
     cmp["tagName"] = tagName;
     cmp["defineCustomElement"] = define;
+
+    if (solidElementType) {
+        cmp["element"] = solidElementType;
+    }
 
     return cmp;
 }

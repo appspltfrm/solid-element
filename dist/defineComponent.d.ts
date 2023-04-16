@@ -8,6 +8,7 @@ import { CustomElementProps } from "./CustomElementProps";
 type DefineElementFn = () => void;
 export type CustomElementComponent<TagName extends string, ElementType extends CustomElement, ComponentProps = CustomElementProps<ElementType>> = Component<ComponentProps & CustomElementJSXAttributes> & {
     tagName: TagName;
+    element: ElementType;
     defineCustomElement(): void;
 };
 export interface CustomElementComponentOptions<Props = any, Events = any> {
