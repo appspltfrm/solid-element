@@ -1,4 +1,4 @@
-import {customElement, CustomElementTemplate, reactive} from "@appspltfrm/solidx";
+import {customElement, CustomElementTemplate, reactive} from "@appspltfrm/solid-element";
 
 export class TestElement extends customElement({reactive: {otherProp: true}}) {
 

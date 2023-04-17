@@ -3,7 +3,7 @@ import {
     CustomElementJSXIntrinsic,
     CustomElementTemplate,
     defineComponent
-} from "@appspltfrm/solidx";
+} from "@appspltfrm/solid-element";
 import {JSXElement} from "solid-js";
 
 export class TestLightElement extends customElement({renderRoot: "element"}) {

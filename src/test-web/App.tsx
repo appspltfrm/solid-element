@@ -10,6 +10,9 @@ const App: Component = () => {
 
         {location.pathname === "/" && <ul>
             <li>
+                <A href="/lazy">lazy</A>
+            </li>
+            <li>
                 <A href="/elements">Elements</A>
             </li>
             <li>
@@ -33,6 +36,7 @@ const App: Component = () => {
         </ul>}
 
         <Routes>
+            <Route path="/lazy" component={lazy(() => import("./lazy"))}/>
             <Route path="/custom-element" component={lazy(() => import("./custom-element"))}/>
             <Route path="/light-dom-element" component={lazy(() => import("./light-dom-element"))}/>
             <Route path="/vars" component={lazy(() => import("./vars"))}/>

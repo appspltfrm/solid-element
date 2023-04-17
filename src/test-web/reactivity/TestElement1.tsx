@@ -1,4 +1,4 @@
-import {defineComponent, CustomElementTemplate, customElement} from "@appspltfrm/solidx";
+import {defineComponent, CustomElementTemplate, customElement} from "@appspltfrm/solid-element";
 import {createSignal} from "solid-js";
 import Test2 from "./TestElement2";
 

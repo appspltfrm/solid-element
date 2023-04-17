@@ -1,4 +1,4 @@
-import {customElement, CustomElementTemplate, defineComponent} from "@appspltfrm/solidx";
+import {customElement, CustomElementTemplate, defineComponent} from "@appspltfrm/solid-element";
 import {JSXElement, onCleanup} from "solid-js";
 
 export default defineComponent("test-reactivity2", class extends customElement({reactive: {errors: true}}) {

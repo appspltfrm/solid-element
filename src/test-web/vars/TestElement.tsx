@@ -5,7 +5,7 @@ import {
     defineComponent,
     getElementSignal,
     setElementSignal
-} from "@appspltfrm/solidx";
+} from "@appspltfrm/solid-element";
 import {JSXElement} from "solid-js";
 
 export default defineComponent("test-vars-element", class extends customElement() {

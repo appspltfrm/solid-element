@@ -4,7 +4,7 @@ import {
     CustomElementTemplate,
     defineComponent,
     reactive
-} from "@appspltfrm/solidx";
+} from "@appspltfrm/solid-element";
 import {createEffect, onCleanup} from "solid-js";
 import styles from "./TestElement.scss?inline";
 
