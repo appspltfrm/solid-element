@@ -12,3 +12,4 @@ export { isCustomElement } from "./isCustomElement";
 export { reactive } from "./reactive";
 export type { CustomElementBirthmark } from "./customElementBirthmark";
 export { customElementBirthmark } from "./customElementBirthmark";
+export { defineLazyCustomElement } from "./defineLazyCustomElement";
