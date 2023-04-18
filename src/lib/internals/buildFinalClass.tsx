@@ -18,7 +18,7 @@ import {stylesProp} from "./stylesProp";
 import {toAttributeName} from "./toAttributeName";
 import {toAttributeValue} from "./toAttributeValue";
 
-export function buildFinalClass(ElementClass: AssignableType<CustomElement> & CustomElementBirthmark) {
+export function buildFinalClass(ElementClass: AssignableType<CustomElement> & CustomElementBirthmark): typeof ElementClass {
 
     const internalClass = ElementClass as unknown as InternalClass;
 

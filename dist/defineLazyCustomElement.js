@@ -1,18 +1,29 @@
-const s = {}, d = new MutationObserver((t) => {
-  let n = [];
-  for (const o of t)
-    if (o.addedNodes)
-      for (const e of o.addedNodes)
-        e instanceof Element && s[e.tagName] && (customElements.get(e.tagName) || (customElements.define(e.tagName, s[e.tagName]()), n.push(e.tagName)), n.includes(e.tagName) && customElements.upgrade(e));
-  for (const o of n)
-    delete s[o];
-  Object.keys(s).length === 0 && d.disconnect();
+import { customElementBirthmark as l } from "./customElementBirthmark.js";
+import { buildFinalClass as r } from "./internals/buildFinalClass.js";
+const n = {}, m = new MutationObserver(async (t) => {
+  let s = [];
+  for (const f of t)
+    if (f.addedNodes) {
+      for (const o of f.addedNodes)
+        if (o instanceof Element && n[o.tagName]) {
+          if (!customElements.get(o.tagName)) {
+            let e = await n[o.tagName]();
+            typeof e == "object" && (e = e.default), typeof e == "function" && e.defineCustomElement ? e.defineCustomElement() : (e[l] && (e = r(e)), customElements.define(o.tagName.toLowerCase(), e)), s.push(o.tagName);
+          }
+          s.includes(o.tagName) && customElements.upgrade(o);
+        }
+    }
+  for (const f of s)
+    delete n[f];
+  Object.keys(n).length === 0 && m.disconnect();
 });
-let c = !1;
-function f(t, n) {
-  t = t.toUpperCase(), !customElements.get(t) && (s[t] = n, c || (c = !0, d.observe(document, { subtree: !0, childList: !0 })));
+let i = !1;
+function u(t, s) {
+  if (t = t.toUpperCase(), customElements.get(t) || n[t])
+    throw new Error(`Custom element ${t} already defined`);
+  n[t] = s, i || (i = !0, m.observe(document, { subtree: !0, childList: !0 }));
 }
 export {
-  f as defineLazyCustomElement
+  u as defineLazyCustomElement
 };
 //# sourceMappingURL=defineLazyCustomElement.js.map
