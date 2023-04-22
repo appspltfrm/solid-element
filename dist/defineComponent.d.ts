@@ -15,7 +15,7 @@ export interface CustomElementComponentOptions<Props = any, Events = any> {
     props?: Props;
     events?: Events;
 }
-export type ElementComponent<TagName extends string, ComponentElement extends HTMLElement, Props> = Component<Partial<Props> & JSX.HTMLAttributes<ComponentElement>> & {
+export type ElementComponent<TagName extends string, ComponentElement extends HTMLElement, Props> = Component<Partial<Props> & JSX.HTMLAttributes<ComponentElement> & CustomElementJSXAttributes> & {
     tagName: TagName;
     register: () => void;
 };
