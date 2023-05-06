@@ -39,6 +39,12 @@ export function getElementVar<T>(element: CustomElement, name: VarName): T | und
     }
 }
 
+export function createElementVar<T>(element: CustomElement, name: VarName, value: T, options?: {onDelete?: (() => any | void)}): T {
+    assertNotExists(allVars.get(element), name);
+    setElementVar(element, name, value, options);
+    return value;
+}
+
 export function setElementVar(element: CustomElement, name: VarName, value: any, options?: {onDelete?: (() => any | void)}) {
 
     let vars = allVars.get(element);

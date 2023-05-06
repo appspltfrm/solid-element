@@ -8,6 +8,9 @@ export interface ObservableLike<ValueType = unknown> {
     subscribe(observer?: Partial<Observer<ValueType>>): Unsubscribable;
 }
 export declare function getElementVar<T>(element: CustomElement, name: VarName): T | undefined;
+export declare function createElementVar<T>(element: CustomElement, name: VarName, value: T, options?: {
+    onDelete?: (() => any | void);
+}): T;
 export declare function setElementVar(element: CustomElement, name: VarName, value: any, options?: {
     onDelete?: (() => any | void);
 }): void;
