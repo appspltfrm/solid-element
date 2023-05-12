@@ -1,5 +1,5 @@
 import {AssignableType} from "@co.mmons/js-utils/core";
-import {createRoot, createSignal} from "solid-js";
+import {createRoot, createSignal, getOwner} from "solid-js";
 import {insert} from "solid-js/web";
 import {CustomElement} from "../customElement";
 import {CustomElementBirthmark} from "../customElementBirthmark";
@@ -12,6 +12,7 @@ import {fromAttributeValue} from "./fromAttributeValue";
 import {globalStylesProp} from "./globalStylesProp";
 import {InternalClass} from "./InternalClass";
 import {InternalInstance} from "./InternalInstance";
+import {ownerProp} from "./ownerProp";
 import {preValuesProp} from "./preValuesProp";
 import {reactivePropsProp} from "./reactivePropsProp";
 import {stylesProp} from "./stylesProp";
@@ -55,12 +56,15 @@ export function buildFinalClass(ElementClass: AssignableType<CustomElement> & Cu
                 this.addDisconnectedCallback(() => {
                     this.renderRoot.textContent = "";
                     dispose();
+                    delete internalThis[ownerProp];
                 })
 
                 let template = super.template!({children: internalThis[childrenProp]});
                 if (template && internalClass[stylesProp] && this.renderRoot !== this) {
                     template = <><style innerHTML={internalClass[stylesProp].join("\n")}/>{template}</>
                 }
+
+                internalThis[ownerProp] = getOwner()!;
 
                 return insert(this.renderRoot, template);
             }, lookupContext(this));
@@ -131,18 +135,16 @@ export function buildFinalClass(ElementClass: AssignableType<CustomElement> & Cu
 
 function lookupContext(el: HTMLElement) {
 
-    type OwnerHost = {_$owner?: any}
-
-    if (el.assignedSlot && (el.assignedSlot as OwnerHost)._$owner) {
-        return (el.assignedSlot as OwnerHost)._$owner;
+    if (el.assignedSlot && (el.assignedSlot as any as InternalInstance)[ownerProp]) {
+        return (el.assignedSlot as any as InternalInstance)[ownerProp];
     }
 
     let next = el.parentNode;
-    while (next && !(next as OwnerHost)._$owner && !((next as Element).assignedSlot && ((next as Element).assignedSlot as OwnerHost)._$owner)) {
+    while (next && !(next as any as InternalInstance)[ownerProp] && !((next as Element).assignedSlot && ((next as Element).assignedSlot as any as InternalInstance)[ownerProp])) {
         next = next.parentNode;
     }
 
-    return next && (next as Element).assignedSlot ? ((next as Element).assignedSlot as OwnerHost)._$owner : (el as OwnerHost)._$owner;
+    return next && (next as Element).assignedSlot ? ((next as Element).assignedSlot as any as InternalInstance)[ownerProp] : (el as any as InternalInstance)[ownerProp];
 }
 
 function lookupAttributeProp(attributeName: string, elementClass: InternalClass): [propName: string, propDefinition: CustomElementReactivePropConfig] | undefined {
