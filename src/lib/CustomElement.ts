@@ -109,7 +109,7 @@ export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
     }
 
     if (options.globalStyles || (options.renderRoot === "element" && options.styles)) {
-        const styles = [options.globalStyles, options.styles].flat().filter(s => !!s);
+        const styles = [options.globalStyles, (options.renderRoot === "element" ? options.styles : undefined)].flat().filter(s => !!s);
         Object.defineProperty(newClass, globalStylesProp, {value: styles});
     }
 

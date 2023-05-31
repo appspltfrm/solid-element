@@ -19,15 +19,15 @@ function I(r, e) {
   const t = (i = class extends o {
     constructor() {
       super();
-      const a = Object.getOwnPropertyNames(this).filter((s) => s !== "_$owner"), n = {};
+      const l = Object.getOwnPropertyNames(this).filter((s) => s !== "_$owner"), n = {};
       let u = !1;
-      for (const s of a) {
-        const l = Object.getOwnPropertyDescriptor(this, s);
-        l != null && l.writable && (n[s] = l.value, u = !0);
+      for (const s of l) {
+        const a = Object.getOwnPropertyDescriptor(this, s);
+        a != null && a.writable && (n[s] = a.value, u = !0);
       }
       const h = Object.getPrototypeOf(this).constructor[y];
-      for (const [s, l] of Object.entries(h))
-        !a.includes(s) && this.hasAttribute(l.attribute) && (n[s] = j(this.getAttribute(l.attribute), l), u = !0);
+      for (const [s, a] of Object.entries(h))
+        !l.includes(s) && this.hasAttribute(a.attribute) && (n[s] = j(this.getAttribute(a.attribute), a), u = !0);
       u && Object.defineProperty(this, O, { value: n, enumerable: !1, writable: !0 }), Object.defineProperty(this, P, { value: [], enumerable: !1, writable: !1 });
     }
     get [(c = m, m)]() {
@@ -36,15 +36,15 @@ function I(r, e) {
     get renderRoot() {
       return e.renderRoot === "element" ? this : this.shadowRoot ?? this.attachShadow({ mode: e.mode || "open", slotAssignment: e.slotAssignment, delegatesFocus: e.delegatesFocus });
     }
-    addDisconnectedCallback(a) {
-      return p(this, b.disconnected, a);
+    addDisconnectedCallback(l) {
+      return p(this, b.disconnected, l);
     }
-    addPropertyValueChangeCallback(a) {
-      return p(this, b.propertyValueChange, a);
+    addPropertyValueChangeCallback(l) {
+      return p(this, b.propertyValueChange, l);
     }
   }, d(i, c, !0), i);
   if (Object.defineProperty(t, y, { value: e.reactive ?? {} }), Object.defineProperty(t, C, { value: e.renderRoot }), e.styles && e.renderRoot !== "element" && Object.defineProperty(t, R, { value: Array.isArray(e.styles) ? e.styles : [e.styles] }), e.globalStyles || e.renderRoot === "element" && e.styles) {
-    const f = [e.globalStyles, e.styles].flat().filter((a) => !!a);
+    const f = [e.globalStyles, e.renderRoot === "element" ? e.styles : void 0].flat().filter((l) => !!l);
     Object.defineProperty(t, w, { value: f });
   }
   return Object.defineProperty(t.prototype, "template", { value: () => {
