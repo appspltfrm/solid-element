@@ -1,5 +1,5 @@
-const l = Symbol("CustomElement:globalStyles");
+const globalStylesProp = Symbol("CustomElement:globalStyles");
 export {
-  l as globalStylesProp
+  globalStylesProp
 };
 //# sourceMappingURL=globalStylesProp.js.map

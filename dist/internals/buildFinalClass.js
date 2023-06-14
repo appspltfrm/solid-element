@@ -1,126 +1,190 @@
-import { effect as A, insert as O, template as _ } from "solid-js/web";
-import { createRoot as j, getOwner as w, createSignal as x } from "solid-js";
-import { CallbackName as k } from "./CallbackName.js";
-import { callbacksProp as C } from "./callbacksProp.js";
-import { childrenProp as P } from "./childrenProp.js";
-import { fromAttributeValue as N } from "./fromAttributeValue.js";
-import { globalStylesProp as g } from "./globalStylesProp.js";
-import { ownerProp as c } from "./ownerProp.js";
-import { preValuesProp as v } from "./preValuesProp.js";
-import { reactivePropsProp as m } from "./reactivePropsProp.js";
-import { stylesProp as y } from "./stylesProp.js";
-import { toAttributeName as R } from "./toAttributeName.js";
-import { toAttributeValue as F } from "./toAttributeValue.js";
-const T = /* @__PURE__ */ _("<style>");
-function d(t, e) {
-  if (!Object.prototype.hasOwnProperty.call(t, e))
+import { effect, insert, template } from "solid-js/web";
+import { createRoot, getOwner, createSignal } from "solid-js";
+import { CallbackName } from "./CallbackName.js";
+import { callbacksProp } from "./callbacksProp.js";
+import { childrenProp } from "./childrenProp.js";
+import { fromAttributeValue } from "./fromAttributeValue.js";
+import { globalStylesProp } from "./globalStylesProp.js";
+import { ownerProp } from "./ownerProp.js";
+import { preValuesProp } from "./preValuesProp.js";
+import { reactivePropsProp } from "./reactivePropsProp.js";
+import { stylesProp } from "./stylesProp.js";
+import { toAttributeName } from "./toAttributeName.js";
+import { toAttributeValue } from "./toAttributeValue.js";
+const _tmpl$ = /* @__PURE__ */ template(`<style>`);
+function _classPrivateFieldLooseBase(receiver, privateKey) {
+  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
     throw new TypeError("attempted to use private field on non-instance");
-  return t;
+  }
+  return receiver;
 }
-var V = 0;
-function L(t) {
-  return "__private_" + V++ + "_" + t;
+var id = 0;
+function _classPrivateFieldLooseKey(name) {
+  return "__private_" + id++ + "_" + name;
 }
-function Z(t) {
-  var e;
-  const s = t, u = (e = /* @__PURE__ */ L("initialized"), class extends t {
+function buildFinalClass(ElementClass) {
+  var _initialized;
+  const internalClass = ElementClass;
+  const finalClass = (_initialized = /* @__PURE__ */ _classPrivateFieldLooseKey("initialized"), class CustomElementFinal extends ElementClass {
     static get observedAttributes() {
-      const n = s[m];
-      return Object.values(n).map((o) => o.attribute);
+      const props = internalClass[reactivePropsProp];
+      return Object.values(props).map((p) => p.attribute);
     }
     constructor() {
-      super(), Object.defineProperty(this, e, {
-        writable: !0,
-        value: !1
+      super();
+      Object.defineProperty(this, _initialized, {
+        writable: true,
+        value: false
       });
     }
     connectedCallback() {
-      const n = this;
-      d(this, e)[e] || (d(this, e)[e] = !0, E(n, s), n[v] = void 0, super.connectedCallback(), j((o) => {
+      const internalThis = this;
+      if (_classPrivateFieldLooseBase(this, _initialized)[_initialized]) {
+        return;
+      }
+      _classPrivateFieldLooseBase(this, _initialized)[_initialized] = true;
+      initReactiveProps(internalThis, internalClass);
+      internalThis[preValuesProp] = void 0;
+      super.connectedCallback();
+      createRoot((dispose) => {
         this.addDisconnectedCallback(() => {
-          this.renderRoot.textContent = "", o(), delete n[c];
+          this.renderRoot.textContent = "";
+          dispose();
+          delete internalThis[ownerProp];
         });
-        let r = super.template({
-          children: n[P]
+        let template2 = super.template({
+          children: internalThis[childrenProp]
         });
-        return r && s[y] && this.renderRoot !== this && (r = [(() => {
-          const i = T();
-          return A(() => i.innerHTML = s[y].join(`
-`)), i;
-        })(), r]), n[c] = w(), O(this.renderRoot, r);
-      }, z(this)));
+        if (template2 && internalClass[stylesProp] && this.renderRoot !== this) {
+          template2 = [(() => {
+            const _el$ = _tmpl$();
+            effect(() => _el$.innerHTML = internalClass[stylesProp].join("\n"));
+            return _el$;
+          })(), template2];
+        }
+        internalThis[ownerProp] = getOwner();
+        return insert(this.renderRoot, template2);
+      }, lookupContext(this));
     }
     async disconnectedCallback() {
-      if (await Promise.resolve(), this.isConnected)
+      await Promise.resolve();
+      if (this.isConnected) {
         return;
-      const n = this[C];
-      let o = n.pop();
-      for (; o; )
-        o[0] === k.disconnected && o[1](this), o = n.pop();
-      super.disconnectedCallback(), d(this, e)[e] = !1;
-    }
-    attributeChangedCallback(n, o, r) {
-      if (!d(this, e)[e])
-        return;
-      const i = D(n, s);
-      r == null && !this[i[0]] || (this[i[0]] = N(r, i[1]));
-    }
-  }), l = t[m];
-  for (let [p, n] of Object.entries(l))
-    n.attribute || (n.attribute = R(p));
-  if (s[g]) {
-    for (const p of s[g])
-      if (p) {
-        const n = document.head ?? document.querySelector("head"), o = document.createElement("style");
-        o.appendChild(document.createTextNode(p)), n.appendChild(o);
       }
-  }
-  return u;
-}
-function z(t) {
-  if (t.assignedSlot && t.assignedSlot[c])
-    return t.assignedSlot[c];
-  let e = t.parentNode;
-  for (; e && !e[c] && !(e.assignedSlot && e.assignedSlot[c]); )
-    e = e.parentNode;
-  return e && e.assignedSlot ? e.assignedSlot[c] : t[c];
-}
-function D(t, e) {
-  const s = e[m];
-  return Object.entries(s).find(([u, l]) => u === t || l.attribute === t);
-}
-function E(t, e) {
-  const s = e[m], u = [P, ...Object.keys(s ?? {})], l = t[v];
-  function p(o, r, i) {
-    const a = t[C];
-    for (let f = 0; f < a.length; f++)
-      if (a[f][0] === k.propertyValueChange)
-        try {
-          a[f][1](t, o, r, i);
-        } catch (b) {
-          console.warn("CustomElement property value change callback error", b);
+      const callbacks = this[callbacksProp];
+      let callback = callbacks.pop();
+      while (callback) {
+        if (callback[0] === CallbackName.disconnected) {
+          callback[1](this);
         }
+        callback = callbacks.pop();
+      }
+      super.disconnectedCallback();
+      _classPrivateFieldLooseBase(this, _initialized)[_initialized] = false;
+    }
+    attributeChangedCallback(name, oldVal, newVal) {
+      if (!_classPrivateFieldLooseBase(this, _initialized)[_initialized]) {
+        return;
+      }
+      const prop = lookupAttributeProp(name, internalClass);
+      if (newVal == null && !this[prop[0]]) {
+        return;
+      }
+      this[prop[0]] = fromAttributeValue(newVal, prop[1]);
+    }
+  });
+  const reactiveProps = ElementClass[reactivePropsProp];
+  for (let [propName, propDefinition] of Object.entries(reactiveProps)) {
+    if (!propDefinition.attribute) {
+      propDefinition.attribute = toAttributeName(propName);
+    }
   }
-  function n(o, r) {
-    const i = o.attribute;
-    r = F(r, o), r == null || r === !1 ? t.removeAttribute(i) : t.getAttribute(i) !== r && t.setAttribute(i, r);
+  if (internalClass[globalStylesProp]) {
+    for (const css of internalClass[globalStylesProp]) {
+      if (css) {
+        const head = document.head ?? document.querySelector("head");
+        const style = document.createElement("style");
+        style.appendChild(document.createTextNode(css));
+        head.appendChild(style);
+      }
+    }
   }
-  for (let o = 0; o < u.length; o++) {
-    const r = u[o], i = s[r];
-    let a;
-    l && r in l ? a = l[r] : a = t[r], i != null && i.reflect && n(i, a);
-    const [f, b] = x(a);
-    Object.defineProperty(t, r, {
-      get: f,
-      set(h) {
-        b((S) => (r !== P && (i != null && i.reflect && n(i, h), p(r, h, S)), h));
+  return finalClass;
+}
+function lookupContext(el) {
+  if (el.assignedSlot && el.assignedSlot[ownerProp]) {
+    return el.assignedSlot[ownerProp];
+  }
+  let next = el.parentNode;
+  while (next && !next[ownerProp] && !(next.assignedSlot && next.assignedSlot[ownerProp])) {
+    next = next.parentNode;
+  }
+  return next && next.assignedSlot ? next.assignedSlot[ownerProp] : el[ownerProp];
+}
+function lookupAttributeProp(attributeName, elementClass) {
+  const props = elementClass[reactivePropsProp];
+  return Object.entries(props).find(([propName, prop]) => propName === attributeName || prop.attribute === attributeName);
+}
+function initReactiveProps(element, elementClass) {
+  const reactiveProps = elementClass[reactivePropsProp];
+  const names = [childrenProp, ...Object.keys(reactiveProps ?? {})];
+  const preValues = element[preValuesProp];
+  function firePropChange(propName, newVal, oldVal) {
+    const callbacks = element[callbacksProp];
+    for (let i = 0; i < callbacks.length; i++) {
+      if (callbacks[i][0] === CallbackName.propertyValueChange) {
+        try {
+          callbacks[i][1](element, propName, newVal, oldVal);
+        } catch (e) {
+          console.warn("CustomElement property value change callback error", e);
+        }
+      }
+    }
+  }
+  function reflectAttribute(prop, value) {
+    const attr = prop.attribute;
+    value = toAttributeValue(value, prop);
+    if (value === void 0 || value === null || value === false) {
+      element.removeAttribute(attr);
+    } else {
+      const prev = element.getAttribute(attr);
+      if (prev !== value) {
+        element.setAttribute(attr, value);
+      }
+    }
+  }
+  for (let i = 0; i < names.length; i++) {
+    const propName = names[i];
+    const propConfig = reactiveProps[propName];
+    let initialValue = void 0;
+    if (preValues && propName in preValues) {
+      initialValue = preValues[propName];
+    } else {
+      initialValue = element[propName];
+    }
+    if (propConfig == null ? void 0 : propConfig.reflect) {
+      reflectAttribute(propConfig, initialValue);
+    }
+    const [get, set] = createSignal(initialValue);
+    Object.defineProperty(element, propName, {
+      get,
+      set(newVal) {
+        set((oldVal) => {
+          if (propName !== childrenProp) {
+            if (propConfig == null ? void 0 : propConfig.reflect) {
+              reflectAttribute(propConfig, newVal);
+            }
+            firePropChange(propName, newVal, oldVal);
+          }
+          return newVal;
+        });
       },
-      enumerable: !0,
-      configurable: !0
+      enumerable: true,
+      configurable: true
     });
   }
 }
 export {
-  Z as buildFinalClass
+  buildFinalClass
 };
 //# sourceMappingURL=buildFinalClass.js.map

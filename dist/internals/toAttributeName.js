@@ -1,7 +1,7 @@
-function a(e) {
-  return e.replace(/\.?([A-Z]+)/g, (t, r) => "-" + r.toLowerCase()).replace("_", "-").replace(/^-/, "");
+function toAttributeName(propName) {
+  return propName.replace(/\.?([A-Z]+)/g, (x, y) => "-" + y.toLowerCase()).replace("_", "-").replace(/^-/, "");
 }
 export {
-  a as toAttributeName
+  toAttributeName
 };
 //# sourceMappingURL=toAttributeName.js.map

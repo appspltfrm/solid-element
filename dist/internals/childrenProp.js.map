@@ -1,1 +1,1 @@
-{"version":3,"file":"childrenProp.js","sources":["../../src/lib/internals/childrenProp.ts"],"sourcesContent":["export const childrenProp = \"custom_element_children\";\n"],"names":["childrenProp"],"mappings":"AAAO,MAAMA,IAAe;"}
+{"version":3,"file":"childrenProp.js","sources":["../../src/lib/internals/childrenProp.ts"],"sourcesContent":["export const childrenProp = \"custom_element_children\";\n"],"names":[],"mappings":"AAAO,MAAM,eAAe;"}

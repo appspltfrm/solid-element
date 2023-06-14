@@ -1,5 +1,5 @@
-const o = Symbol("CustomElement:owner");
+const ownerProp = Symbol("CustomElement:owner");
 export {
-  o as ownerProp
+  ownerProp
 };
 //# sourceMappingURL=ownerProp.js.map

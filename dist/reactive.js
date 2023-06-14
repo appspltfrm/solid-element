@@ -1,14 +1,15 @@
-import { reactivePropsProp as e } from "./internals/reactivePropsProp.js";
-import { isCustomElement as i } from "./isCustomElement.js";
-function m(o) {
-  return (r, t, s) => {
-    if (i(r)) {
-      const c = r.constructor[e];
-      c[t] = o ?? {};
+import { reactivePropsProp } from "./internals/reactivePropsProp.js";
+import { isCustomElement } from "./isCustomElement.js";
+function reactive(options) {
+  return (element, propName, propertyDescriptor) => {
+    if (isCustomElement(element)) {
+      const constructor = element.constructor;
+      const reactive2 = constructor[reactivePropsProp];
+      reactive2[propName] = options ?? {};
     }
   };
 }
 export {
-  m as reactive
+  reactive
 };
 //# sourceMappingURL=reactive.js.map

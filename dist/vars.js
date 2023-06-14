@@ -1,193 +1,273 @@
-var m = Object.defineProperty;
-var y = (t, e, r) => e in t ? m(t, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : t[e] = r;
-var E = (t, e, r) => (y(t, typeof e != "symbol" ? e + "" : e, r), r);
-import { createMemo as D, createSignal as S } from "solid-js";
-import { createStore as b } from "solid-js/store";
-const i = /* @__PURE__ */ new WeakMap();
-class c {
+var __defProp = Object.defineProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
+import { createMemo, createSignal } from "solid-js";
+import { createStore } from "solid-js/store";
+const allVars = /* @__PURE__ */ new WeakMap();
+class VarValue {
   constructor() {
-    E(this, "value");
-    E(this, "onDelete");
+    __publicField(this, "value");
+    __publicField(this, "onDelete");
   }
 }
-function a(t, e) {
-  if (t && e in t)
-    throw new Error(`Element var ${String(e)} already exists`);
-}
-function x(t, e) {
-  if (t && !(e in t))
-    throw new Error(`Element var ${String(e)} not exists`);
-}
-function M(t, e) {
-  var n;
-  const r = (n = i.get(t)) == null ? void 0 : n[e];
-  return r instanceof c ? r.value : r;
-}
-function $(t, e, r, n) {
-  return a(i.get(t), e), f(t, e, r, n), r;
-}
-function f(t, e, r, n) {
-  let o = i.get(t);
-  o || (o = {}, i.set(t, o), t.addDisconnectedCallback(() => {
-    var u;
-    const l = i.get(t);
-    if (l)
-      for (const g of Object.values(l))
-        g instanceof c && ((u = g.onDelete) == null || u.call(g));
-    i.delete(t);
-  }));
-  let s = r;
-  n != null && n.onDelete && (s = new c(), s.value = r, s.onDelete = n.onDelete), o[e] = s;
-}
-function d(t, e) {
-  var n;
-  const r = i.get(t);
-  if (r) {
-    let o = r[e];
-    return o instanceof c && ((n = o.onDelete) == null || n.call(o), o = o.value), delete r[e], o;
+function assertNotExists(vars, name) {
+  if (vars && name in vars) {
+    throw new Error(`Element var ${String(name)} already exists`);
   }
 }
-function k(t, e, r, n, o) {
-  const s = i.get(t);
-  a(s, e);
-  const l = D(r, n, o);
-  return f(t, e, l), l;
+function assertExists(vars, name) {
+  if (vars && !(name in vars)) {
+    throw new Error(`Element var ${String(name)} not exists`);
+  }
 }
-function j(t, e) {
-  const r = i.get(t);
-  x(r, e);
-  let n = r[e];
-  n instanceof c && (n = n.value);
-  const o = n;
-  return typeof o == "function" ? o : () => {
-    throw new Error(`Element var ${String(e)} is not a memo`);
+function getElementVar(element, name) {
+  var _a;
+  const v = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (v instanceof VarValue) {
+    return v.value;
+  } else {
+    return v;
+  }
+}
+function createElementVar(element, name, value, options) {
+  assertNotExists(allVars.get(element), name);
+  setElementVar(element, name, value, options);
+  return value;
+}
+function setElementVar(element, name, value, options) {
+  let vars = allVars.get(element);
+  if (!vars) {
+    vars = {};
+    allVars.set(element, vars);
+    element.addDisconnectedCallback(() => {
+      var _a;
+      const vars2 = allVars.get(element);
+      if (vars2) {
+        for (const v of Object.values(vars2)) {
+          if (v instanceof VarValue) {
+            (_a = v.onDelete) == null ? void 0 : _a.call(v);
+          }
+        }
+      }
+      allVars.delete(element);
+    });
+  }
+  let varValue = value;
+  if (options == null ? void 0 : options.onDelete) {
+    varValue = new VarValue();
+    varValue.value = value;
+    varValue.onDelete = options.onDelete;
+  }
+  vars[name] = varValue;
+}
+function deleteElementVar(element, name) {
+  var _a;
+  const vars = allVars.get(element);
+  if (vars) {
+    let v = vars[name];
+    if (v instanceof VarValue) {
+      (_a = v.onDelete) == null ? void 0 : _a.call(v);
+      v = v.value;
+    }
+    delete vars[name];
+    return v;
+  }
+}
+function createElementMemo(element, name, fn, value, options) {
+  const vars = allVars.get(element);
+  assertNotExists(vars, name);
+  const memo = createMemo(fn, value, options);
+  setElementVar(element, name, memo);
+  return memo;
+}
+function useElementMemo(element, name) {
+  const vars = allVars.get(element);
+  assertExists(vars, name);
+  let value = vars[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  const memo = value;
+  if (typeof memo === "function") {
+    return memo;
+  }
+  return () => {
+    throw new Error(`Element var ${String(name)} is not a memo`);
   };
 }
-function C(t, e) {
-  var o;
-  let r = (o = i.get(t)) == null ? void 0 : o[e];
-  r instanceof c && (r = r.value);
-  const n = r;
-  if (typeof n == "function")
-    return n();
-  throw new Error(`Element var ${String(e)} is not a memo`);
+function getElementMemo(element, name) {
+  var _a;
+  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  const memo = value;
+  if (typeof memo === "function") {
+    return memo();
+  }
+  throw new Error(`Element var ${String(name)} is not a memo`);
 }
-function v(t, e, r) {
-  const n = i.get(t);
-  a(n, e);
-  const o = S(r);
-  return f(t, e, o), o;
+function createElementSignal(element, name, value) {
+  const vars = allVars.get(element);
+  assertNotExists(vars, name);
+  const signal = createSignal(value);
+  setElementVar(element, name, signal);
+  return signal;
 }
-function N(t, e) {
-  var o;
-  let r = (o = i.get(t)) == null ? void 0 : o[e];
-  r instanceof c && (r = r.value);
-  let n = r;
-  return n || (n = v(t, e)), n;
+function useElementSignal(element, name) {
+  var _a;
+  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  let signal = value;
+  if (!signal) {
+    signal = createElementSignal(element, name);
+  }
+  return signal;
 }
-function O(t, e) {
-  var o;
-  let r = (o = i.get(t)) == null ? void 0 : o[e];
-  r instanceof c && (r = r.value);
-  let n = r;
-  return n || (n = v(t, e)), n[0]();
+function getElementSignal(element, name) {
+  var _a;
+  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  let signal = value;
+  if (!signal) {
+    signal = createElementSignal(element, name);
+  }
+  return signal[0]();
 }
-function W(t, e, r) {
-  var s;
-  let n = (s = i.get(t)) == null ? void 0 : s[e];
-  n instanceof c && (n = n.value);
-  let o = n;
-  o || (o = v(t, e)), o[1](r);
+function setElementSignal(element, name, value) {
+  var _a;
+  let current = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (current instanceof VarValue) {
+    current = current.value;
+  }
+  let signal = current;
+  if (!signal) {
+    signal = createElementSignal(element, name);
+  }
+  signal[1](value);
 }
-function q(t, e) {
-  d(t, e);
+function deleteElementSignal(element, name) {
+  deleteElementVar(element, name);
 }
-function z(t, e, r, n) {
-  const o = i.get(t);
-  a(o, e);
-  const s = S(), l = r.subscribe({
-    next: (u) => s[1](() => u),
-    error: (u) => {
-      if (n != null && n.onError)
-        n.onError(u);
-      else
-        throw u;
+function loadElementSignal(element, name, observable, options) {
+  const vars = allVars.get(element);
+  assertNotExists(vars, name);
+  const signal = createSignal();
+  const unsub = observable.subscribe({
+    next: (data) => signal[1](() => data),
+    error: (error) => {
+      if (options == null ? void 0 : options.onError) {
+        options.onError(error);
+      } else {
+        throw error;
+      }
     }
   });
-  return f(t, e, s, { onDelete: "unsubscribe" in l ? l.unsubscribe : l }), s[0];
+  setElementVar(element, name, signal, { onDelete: "unsubscribe" in unsub ? unsub.unsubscribe : unsub });
+  return signal[0];
 }
-function B(t, e) {
-  d(t, e);
+function deleteElementStore(element, name) {
+  deleteElementVar(element, name);
 }
-function F(t, e) {
-  var o;
-  let r = (o = i.get(t)) == null ? void 0 : o[e];
-  r instanceof c && (r = r.value);
-  const n = r;
-  return n && Array.isArray(n) ? n : [
-    void 0,
-    (s) => {
-      const [, l] = w(t, e);
-      return l(s);
-    }
-  ];
+function useElementStore(element, name) {
+  var _a;
+  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  const store = value;
+  if (store && Array.isArray(store)) {
+    return store;
+  } else {
+    return [
+      void 0,
+      (v) => {
+        const [, setStore] = createElementStore(element, name);
+        return setStore(v);
+      }
+    ];
+  }
 }
-function G(t, e, r) {
-  var s;
-  let n = (s = i.get(t)) == null ? void 0 : s[e];
-  n instanceof c && (n = n.value);
-  const o = n;
-  if (o && Array.isArray(o))
-    return o[1](r);
-  w(t, e, r);
+function setElementStore(element, name, newValue) {
+  var _a;
+  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  const store = value;
+  if (store && Array.isArray(store)) {
+    return store[1](newValue);
+  } else {
+    createElementStore(element, name, newValue);
+  }
 }
-function H(t, e) {
-  var o;
-  let r = (o = i.get(t)) == null ? void 0 : o[e];
-  r instanceof c && (r = r.value);
-  const n = r;
-  if (n && Array.isArray(n))
-    return n[0];
+function getElementStore(element, name) {
+  var _a;
+  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  if (value instanceof VarValue) {
+    value = value.value;
+  }
+  const store = value;
+  if (store && Array.isArray(store)) {
+    return store[0];
+  } else {
+    return void 0;
+  }
 }
-function w(t, e, r) {
-  const n = i.get(t);
-  a(n, e);
-  const o = b(r);
-  return f(t, e, o), o;
+function createElementStore(element, name, value) {
+  const vars = allVars.get(element);
+  assertNotExists(vars, name);
+  const store = createStore(value);
+  setElementVar(element, name, store);
+  return store;
 }
-function I(t, e, r, n) {
-  const o = i.get(t);
-  a(o, e);
-  const s = b({}), l = r.subscribe({
-    next: (u) => s[1](u),
-    error: (u) => {
-      if (n != null && n.onError)
-        n.onError(u);
-      else
-        throw u;
+function loadElementStore(element, name, value, options) {
+  const vars = allVars.get(element);
+  assertNotExists(vars, name);
+  const store = createStore({});
+  const unsub = value.subscribe({
+    next: (data) => store[1](data),
+    error: (error) => {
+      if (options == null ? void 0 : options.onError) {
+        options.onError(error);
+      } else {
+        throw error;
+      }
     }
   });
-  return f(t, e, s, { onDelete: "unsubscribe" in l ? l.unsubscribe : l }), s[0];
+  setElementVar(element, name, store, { onDelete: () => {
+    if ("unsubscribe" in unsub) {
+      unsub.unsubscribe();
+    }
+  } });
+  return store[0];
 }
 export {
-  k as createElementMemo,
-  v as createElementSignal,
-  w as createElementStore,
-  $ as createElementVar,
-  q as deleteElementSignal,
-  B as deleteElementStore,
-  d as deleteElementVar,
-  C as getElementMemo,
-  O as getElementSignal,
-  H as getElementStore,
-  M as getElementVar,
-  z as loadElementSignal,
-  I as loadElementStore,
-  W as setElementSignal,
-  G as setElementStore,
-  f as setElementVar,
-  j as useElementMemo,
-  N as useElementSignal,
-  F as useElementStore
+  createElementMemo,
+  createElementSignal,
+  createElementStore,
+  createElementVar,
+  deleteElementSignal,
+  deleteElementStore,
+  deleteElementVar,
+  getElementMemo,
+  getElementSignal,
+  getElementStore,
+  getElementVar,
+  loadElementSignal,
+  loadElementStore,
+  setElementSignal,
+  setElementStore,
+  setElementVar,
+  useElementMemo,
+  useElementSignal,
+  useElementStore
 };
 //# sourceMappingURL=vars.js.map

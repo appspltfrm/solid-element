@@ -1,8 +1,8 @@
-import { buildFinalClass as t } from "./internals/buildFinalClass.js";
-function m(e, n) {
-  customElements.define(e, t(n));
+import { buildFinalClass } from "./internals/buildFinalClass.js";
+function defineCustomElement(tagName, ElementClass) {
+  customElements.define(tagName, buildFinalClass(ElementClass));
 }
 export {
-  m as defineCustomElement
+  defineCustomElement
 };
 //# sourceMappingURL=defineCustomElement.js.map

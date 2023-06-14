@@ -1,5 +1,5 @@
-const l = Symbol("CustomElement:callbacks");
+const callbacksProp = Symbol("CustomElement:callbacks");
 export {
-  l as callbacksProp
+  callbacksProp
 };
 //# sourceMappingURL=callbacksProp.js.map

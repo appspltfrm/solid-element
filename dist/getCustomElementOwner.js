@@ -1,8 +1,8 @@
-import { ownerProp as e } from "./internals/ownerProp.js";
-function t(r) {
-  return r[e];
+import { ownerProp } from "./internals/ownerProp.js";
+function getCustomElementOwner(el) {
+  return el[ownerProp];
 }
 export {
-  t as getCustomElementOwner
+  getCustomElementOwner
 };
 //# sourceMappingURL=getCustomElementOwner.js.map

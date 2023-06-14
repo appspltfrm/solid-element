@@ -311,7 +311,11 @@ export function loadElementStore<S extends {[key: string]: any}>(element: Custom
         }
     })
 
-    setElementVar(element, name, store, {onDelete: ("unsubscribe" in unsub ? unsub.unsubscribe : unsub)});
+    setElementVar(element, name, store, {onDelete: () => {
+        if ("unsubscribe" in unsub) {
+            unsub.unsubscribe();
+        }
+    }});
 
     return store[0];
 }

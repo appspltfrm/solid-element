@@ -1,5 +1,5 @@
-const t = Symbol("CustomElement");
+const customElementBirthmark = Symbol("CustomElement");
 export {
-  t as customElementBirthmark
+  customElementBirthmark
 };
 //# sourceMappingURL=customElementBirthmark.js.map

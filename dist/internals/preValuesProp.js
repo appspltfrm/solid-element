@@ -1,5 +1,5 @@
-const e = Symbol("CustomElement:preValues");
+const preValuesProp = Symbol("CustomElement:preValues");
 export {
-  e as preValuesProp
+  preValuesProp
 };
 //# sourceMappingURL=preValuesProp.js.map

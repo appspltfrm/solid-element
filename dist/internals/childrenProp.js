@@ -1,5 +1,5 @@
-const e = "custom_element_children";
+const childrenProp = "custom_element_children";
 export {
-  e as childrenProp
+  childrenProp
 };
 //# sourceMappingURL=childrenProp.js.map

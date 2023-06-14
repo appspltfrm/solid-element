@@ -1,61 +1,91 @@
-import { children as x, splitProps as j, createMemo as m, sharedConfig as C, mergeProps as E } from "solid-js";
-import { getNextElement as y, spread as w } from "solid-js/web";
-import { defineCustomElement as A } from "./defineCustomElement.js";
-import { childrenProp as D } from "./internals/childrenProp.js";
-import { reactivePropsProp as O } from "./internals/reactivePropsProp.js";
-function N(r, f, g) {
-  const c = typeof f == "function" && f, e = typeof f == "object" ? f : g;
-  function a() {
-    if (!customElements.get(r)) {
-      if (c)
-        A(r, c);
-      else if (e != null && e.define)
-        for (const i of Array.isArray(e.define) ? e.define : [e.define])
-          i();
+import { children, splitProps, createMemo, sharedConfig, mergeProps } from "solid-js";
+import { getNextElement, spread } from "solid-js/web";
+import { defineCustomElement } from "./defineCustomElement.js";
+import { childrenProp } from "./internals/childrenProp.js";
+import { reactivePropsProp } from "./internals/reactivePropsProp.js";
+function defineComponent(tagName, elementTypeOrOptions, componentOptions) {
+  const solidElementType = typeof elementTypeOrOptions === "function" && elementTypeOrOptions;
+  const options = typeof elementTypeOrOptions === "object" ? elementTypeOrOptions : componentOptions;
+  function define() {
+    if (customElements.get(tagName)) {
+      return;
+    } else if (solidElementType) {
+      defineCustomElement(tagName, solidElementType);
+    } else if (options == null ? void 0 : options.define) {
+      for (const d of Array.isArray(options.define) ? options.define : [options.define]) {
+        d();
+      }
     }
   }
-  let s;
-  if (c) {
-    const i = c;
-    s = (d) => {
-      a();
-      const P = x(() => d.children), [, h] = j(d, ["children"]), p = m(() => {
-        const n = {}, o = Object.getOwnPropertyDescriptors(h);
-        for (const t of Object.keys(o)) {
-          const l = i[O][t] ? `prop:${t}` : $(t);
-          Object.defineProperty(n, t !== l ? l : t, o[t]);
+  let cmp;
+  if (solidElementType) {
+    const internalClass = solidElementType;
+    cmp = (rawProps) => {
+      define();
+      const rawChildren = children(() => rawProps.children);
+      const [, uncheckedProps] = splitProps(rawProps, ["children"]);
+      const props = createMemo(() => {
+        const clone = {};
+        const descriptors = Object.getOwnPropertyDescriptors(uncheckedProps);
+        for (const key of Object.keys(descriptors)) {
+          const fixed = internalClass[reactivePropsProp][key] ? `prop:${key}` : fixPropName(key);
+          Object.defineProperty(clone, key !== fixed ? fixed : key, descriptors[key]);
         }
-        return n;
+        return clone;
       });
-      return m(() => {
-        const n = C.context ? y() : document.createElement(r), t = n.renderRoot === n ? `prop:${D}` : "children";
-        return w(n, E(p, {
-          [t]: P
-        }), !1, !1), n;
+      return createMemo(() => {
+        const el = sharedConfig.context ? getNextElement() : document.createElement(tagName);
+        const noShadow = el.renderRoot === el;
+        const childrenPropName = noShadow ? `prop:${childrenProp}` : "children";
+        spread(el, mergeProps(props, {
+          [childrenPropName]: rawChildren
+        }), false, false);
+        return el;
       });
     };
-  } else
-    s = (i) => (a(), m(() => {
-      const d = x(() => i.children), [P, h] = j(i, ["children"]), p = C.context ? y() : document.createElement(r), n = m(() => {
-        var l;
-        const o = {}, t = Object.getOwnPropertyDescriptors(h);
-        for (const u of Object.keys(t)) {
-          const b = $(u);
-          Object.defineProperty(o, u !== b ? b : u, t[u]);
-        }
-        return (l = e == null ? void 0 : e.propsHandler) == null || l.call(e, o), o;
+  } else {
+    cmp = (rawProps) => {
+      define();
+      return createMemo(() => {
+        const rawChildren = children(() => rawProps.children);
+        const [_, uncheckedProps] = splitProps(rawProps, ["children"]);
+        const el = sharedConfig.context ? getNextElement() : document.createElement(tagName);
+        const props = createMemo(() => {
+          var _a;
+          const clone = {};
+          const descriptors = Object.getOwnPropertyDescriptors(uncheckedProps);
+          for (const key of Object.keys(descriptors)) {
+            const fixed = fixPropName(key);
+            Object.defineProperty(clone, key !== fixed ? fixed : key, descriptors[key]);
+          }
+          (_a = options == null ? void 0 : options.propsHandler) == null ? void 0 : _a.call(options, clone);
+          return clone;
+        });
+        spread(el, mergeProps(options == null ? void 0 : options.initialProps, props, {
+          children: rawChildren ?? []
+        }), false, false);
+        return el;
       });
-      return w(p, E(e == null ? void 0 : e.initialProps, n, {
-        children: d ?? []
-      }), !1, !1), p;
-    }));
-  return s.tagName = r, s.defineCustomElement = a, c && (s.element = c), s;
+    };
+  }
+  cmp["tagName"] = tagName;
+  cmp["defineCustomElement"] = define;
+  if (solidElementType) {
+    cmp["element"] = solidElementType;
+  }
+  return cmp;
 }
-const S = ["class", "className", "classList", "ref", "style"];
-function $(r) {
-  return r.includes(":") || r.startsWith("on") || S.includes(r) ? r : r.includes("-") ? `attr:${r}` : `prop:${r}`;
+const notFixableProps = ["class", "className", "classList", "ref", "style"];
+function fixPropName(key) {
+  if (key.includes(":") || key.startsWith("on") || notFixableProps.includes(key)) {
+    return key;
+  } else if (key.includes("-")) {
+    return `attr:${key}`;
+  } else {
+    return `prop:${key}`;
+  }
 }
 export {
-  N as defineComponent
+  defineComponent
 };
 //# sourceMappingURL=defineComponent.js.map

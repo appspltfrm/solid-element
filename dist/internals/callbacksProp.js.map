@@ -1,1 +1,1 @@
-{"version":3,"file":"callbacksProp.js","sources":["../../src/lib/internals/callbacksProp.ts"],"sourcesContent":["export const callbacksProp = Symbol(\"CustomElement:callbacks\");\n"],"names":["callbacksProp"],"mappings":"AAAa,MAAAA,IAAgB,OAAO,yBAAyB;"}
+{"version":3,"file":"callbacksProp.js","sources":["../../src/lib/internals/callbacksProp.ts"],"sourcesContent":["export const callbacksProp = Symbol(\"CustomElement:callbacks\");\n"],"names":[],"mappings":"AAAa,MAAA,gBAAgB,OAAO,yBAAyB;"}

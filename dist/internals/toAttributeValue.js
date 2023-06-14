@@ -1,8 +1,15 @@
-import { Serializer as t, serialize as i } from "@co.mmons/js-utils/json";
-function s(e, r) {
-  return e == null ? e : r.type instanceof t ? r.type.serialize(e) : i(e, r.type);
+import { Serializer, serialize } from "@co.mmons/js-utils/json";
+function toAttributeValue(value, propDefinition) {
+  if (value === null || value === void 0) {
+    return value;
+  }
+  if (propDefinition.type instanceof Serializer) {
+    return propDefinition.type.serialize(value);
+  } else {
+    return serialize(value, propDefinition.type);
+  }
 }
 export {
-  s as toAttributeValue
+  toAttributeValue
 };
 //# sourceMappingURL=toAttributeValue.js.map

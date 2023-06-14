@@ -1,5 +1,5 @@
-const e = Symbol("CustomElement:reactiveProps");
+const reactivePropsProp = Symbol("CustomElement:reactiveProps");
 export {
-  e as reactivePropsProp
+  reactivePropsProp
 };
 //# sourceMappingURL=reactivePropsProp.js.map

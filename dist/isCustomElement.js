@@ -1,8 +1,8 @@
-import { customElementBirthmark as r } from "./customElementBirthmark.js";
-function m(t) {
-  return t[r] === !0;
+import { customElementBirthmark } from "./customElementBirthmark.js";
+function isCustomElement(element) {
+  return element[customElementBirthmark] === true;
 }
 export {
-  m as isCustomElement
+  isCustomElement
 };
 //# sourceMappingURL=isCustomElement.js.map

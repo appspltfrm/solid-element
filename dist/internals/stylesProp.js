@@ -1,5 +1,5 @@
-const s = Symbol("CustomElement:styles");
+const stylesProp = Symbol("CustomElement:styles");
 export {
-  s as stylesProp
+  stylesProp
 };
 //# sourceMappingURL=stylesProp.js.map

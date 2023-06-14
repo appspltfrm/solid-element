@@ -1,5 +1,5 @@
-const o = Symbol("CustomElement:renderRoot");
+const renderRootProp = Symbol("CustomElement:renderRoot");
 export {
-  o as renderRootProp
+  renderRootProp
 };
 //# sourceMappingURL=renderRootProp.js.map

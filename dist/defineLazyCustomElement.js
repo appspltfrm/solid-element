@@ -1,33 +1,68 @@
-import { customElementBirthmark as d } from "./customElementBirthmark.js";
-import { buildFinalClass as a } from "./internals/buildFinalClass.js";
-const i = {}, f = {}, r = new MutationObserver(async (t) => {
-  let o = [];
-  for (const l of t)
-    if (l.addedNodes) {
-      for (const n of l.addedNodes)
-        if (n instanceof Element && i[n.tagName]) {
-          const s = n.tagName;
-          !o.includes(s) && !customElements.get(s) && (s in f || (f[s] = new Promise(async (c) => {
-            try {
-              let e = await i[n.tagName]();
-              typeof e == "object" && (e = e.default), typeof e == "function" && e.defineCustomElement ? e.defineCustomElement() : (e[d] && (e = a(e)), customElements.define(n.tagName.toLowerCase(), e)), c();
-            } catch (e) {
-              console.error(e), delete f[s];
+import { customElementBirthmark } from "./customElementBirthmark.js";
+import { buildFinalClass } from "./internals/buildFinalClass.js";
+const elements = {};
+const loading = {};
+const observer = new MutationObserver(async (mutations) => {
+  let definedElements = [];
+  for (const m of mutations) {
+    if (m.addedNodes) {
+      for (const n of m.addedNodes) {
+        if (n instanceof Element && elements[n.tagName]) {
+          const tagName = n.tagName;
+          if (!definedElements.includes(tagName) && !customElements.get(tagName)) {
+            if (!(tagName in loading)) {
+              loading[tagName] = new Promise(async (resolve) => {
+                try {
+                  let elementClass = await elements[n.tagName]();
+                  if (typeof elementClass === "object") {
+                    elementClass = elementClass.default;
+                  }
+                  if (typeof elementClass === "function" && elementClass.defineCustomElement) {
+                    elementClass.defineCustomElement();
+                  } else {
+                    if (elementClass[customElementBirthmark]) {
+                      elementClass = buildFinalClass(elementClass);
+                    }
+                    customElements.define(n.tagName.toLowerCase(), elementClass);
+                  }
+                  resolve();
+                } catch (e) {
+                  console.error(e);
+                  delete loading[tagName];
+                }
+              });
             }
-          })), await f[s], o.push(n.tagName)), o.includes(n.tagName) && customElements.upgrade(n);
+            await loading[tagName];
+            definedElements.push(n.tagName);
+          }
+          if (definedElements.includes(n.tagName)) {
+            customElements.upgrade(n);
+          }
         }
+      }
     }
-  for (const l of o)
-    delete i[l], delete f[l];
-  Object.keys(i).length === 0 && r.disconnect();
+  }
+  for (const e of definedElements) {
+    delete elements[e];
+    delete loading[e];
+  }
+  if (Object.keys(elements).length === 0) {
+    observer.disconnect();
+  }
 });
-let m = !1;
-function p(t, o) {
-  if (t = t.toUpperCase(), customElements.get(t) || i[t])
-    throw new Error(`Custom element ${t} already defined`);
-  i[t] = o, m || (m = !0, r.observe(document, { subtree: !0, childList: !0 }));
+let connected = false;
+function defineLazyCustomElement(tagName, loader) {
+  tagName = tagName.toUpperCase();
+  if (customElements.get(tagName) || elements[tagName]) {
+    throw new Error(`Custom element ${tagName} already defined`);
+  }
+  elements[tagName] = loader;
+  if (!connected) {
+    connected = true;
+    observer.observe(document, { subtree: true, childList: true });
+  }
 }
 export {
-  p as defineLazyCustomElement
+  defineLazyCustomElement
 };
 //# sourceMappingURL=defineLazyCustomElement.js.map

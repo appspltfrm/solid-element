@@ -1,13 +1,18 @@
-import { Serializer as e, unserialize as i } from "@co.mmons/js-utils/json";
-function f(t, r) {
-  if (t == null)
-    return t;
-  if (r.type instanceof e)
-    return r.type.unserialize(t);
-  if (typeof t == "string")
-    return r.type !== String && t === "" ? void 0 : i(t, r.type, { notStrict: !0 });
+import { Serializer, unserialize } from "@co.mmons/js-utils/json";
+function fromAttributeValue(value, propDefinition) {
+  if (value === null || value === void 0) {
+    return value;
+  }
+  if (propDefinition.type instanceof Serializer) {
+    return propDefinition.type.unserialize(value);
+  } else if (typeof value === "string") {
+    if (propDefinition.type !== String && value === "") {
+      return void 0;
+    }
+    return unserialize(value, propDefinition.type, { notStrict: true });
+  }
 }
 export {
-  f as fromAttributeValue
+  fromAttributeValue
 };
 //# sourceMappingURL=fromAttributeValue.js.map
