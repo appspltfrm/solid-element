@@ -8,6 +8,7 @@ import {CustomElementReactivePropConfig} from "../CustomElementReactivePropConfi
 import {CallbackName} from "./CallbackName";
 import {callbacksProp} from "./callbacksProp";
 import {childrenProp} from "./childrenProp";
+import {classesProp} from "./classesProp";
 import {fromAttributeValue} from "./fromAttributeValue";
 import {globalStylesProp} from "./globalStylesProp";
 import {InternalClass} from "./InternalClass";
@@ -48,6 +49,12 @@ export function buildFinalClass(ElementClass: AssignableType<CustomElement> & Cu
 
             initReactiveProps(internalThis, internalClass);
             internalThis[preValuesProp] = undefined;
+
+            if (internalClass[classesProp]) {
+                for (const c of internalClass[classesProp]) {
+                    this.classList.add(c);
+                }
+            }
 
             super.connectedCallback!();
 

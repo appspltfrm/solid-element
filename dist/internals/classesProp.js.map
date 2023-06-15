@@ -1,0 +1,1 @@
+{"version":3,"file":"classesProp.js","sources":["../../src/lib/internals/classesProp.ts"],"sourcesContent":["export const classesProp = Symbol(\"CustomElement:classes\");\n"],"names":[],"mappings":"AAAa,MAAA,cAAc,OAAO,uBAAuB;"}

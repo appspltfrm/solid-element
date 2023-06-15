@@ -4,6 +4,7 @@ export interface CustomElementOptions extends Partial<ShadowRootInit> {
         [propName: string]: boolean | CustomElementReactivePropConfig;
     };
     renderRoot?: "shadow" | "element";
+    classes?: string[];
     styles?: string | string[];
     globalStyles?: string | string[];
 }

@@ -1,3 +1,4 @@
+import { classesProp } from "./classesProp";
 import { globalStylesProp } from "./globalStylesProp";
 import { ReactivePropsMap } from "./ReactivePropsMap";
 import { customElementBirthmark } from "../customElementBirthmark";
@@ -8,6 +9,7 @@ export interface InternalClass {
     readonly [customElementBirthmark]: true;
     readonly [renderRootProp]: "element" | "shadow";
     readonly [stylesProp]: string[];
+    readonly [classesProp]: string[];
     readonly [globalStylesProp]: string[];
     readonly [reactivePropsProp]: ReactivePropsMap;
 }

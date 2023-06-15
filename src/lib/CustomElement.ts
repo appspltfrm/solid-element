@@ -8,6 +8,7 @@ import {
 import {CustomElementOptions} from "./CustomElementOptions";
 import {CallbackName} from "./internals/CallbackName";
 import {callbacksProp} from "./internals/callbacksProp";
+import {classesProp} from "./internals/classesProp";
 import {fromAttributeValue} from "./internals/fromAttributeValue";
 import {globalStylesProp} from "./internals/globalStylesProp";
 import {InternalInstance} from "./internals/InternalInstance";
@@ -103,6 +104,7 @@ export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOr
 
     Object.defineProperty(newClass, reactivePropsProp, {value: options.reactive ?? {}});
     Object.defineProperty(newClass, renderRootProp, {value: options.renderRoot});
+    Object.defineProperty(newClass, classesProp, {value: options.classes});
 
     if (options.styles && options.renderRoot !== "element") {
         Object.defineProperty(newClass, stylesProp, {value: Array.isArray(options.styles) ? options.styles : [options.styles]});

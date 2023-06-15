@@ -7,6 +7,7 @@ var __publicField = (obj, key, value) => {
 import { customElementBirthmark } from "./customElementBirthmark.js";
 import { CallbackName } from "./internals/CallbackName.js";
 import { callbacksProp } from "./internals/callbacksProp.js";
+import { classesProp } from "./internals/classesProp.js";
 import { fromAttributeValue } from "./internals/fromAttributeValue.js";
 import { globalStylesProp } from "./internals/globalStylesProp.js";
 import { preValuesProp } from "./internals/preValuesProp.js";
@@ -75,6 +76,7 @@ function customElement(baseTypeOrOptions, options) {
   }, __publicField(_b, _a, true), _b);
   Object.defineProperty(newClass, reactivePropsProp, { value: options.reactive ?? {} });
   Object.defineProperty(newClass, renderRootProp, { value: options.renderRoot });
+  Object.defineProperty(newClass, classesProp, { value: options.classes });
   if (options.styles && options.renderRoot !== "element") {
     Object.defineProperty(newClass, stylesProp, { value: Array.isArray(options.styles) ? options.styles : [options.styles] });
   }

@@ -3,6 +3,7 @@ import { createRoot, getOwner, createSignal } from "solid-js";
 import { CallbackName } from "./CallbackName.js";
 import { callbacksProp } from "./callbacksProp.js";
 import { childrenProp } from "./childrenProp.js";
+import { classesProp } from "./classesProp.js";
 import { fromAttributeValue } from "./fromAttributeValue.js";
 import { globalStylesProp } from "./globalStylesProp.js";
 import { ownerProp } from "./ownerProp.js";
@@ -45,6 +46,11 @@ function buildFinalClass(ElementClass) {
       _classPrivateFieldLooseBase(this, _initialized)[_initialized] = true;
       initReactiveProps(internalThis, internalClass);
       internalThis[preValuesProp] = void 0;
+      if (internalClass[classesProp]) {
+        for (const c of internalClass[classesProp]) {
+          this.classList.add(c);
+        }
+      }
       super.connectedCallback();
       createRoot((dispose) => {
         this.addDisconnectedCallback(() => {
