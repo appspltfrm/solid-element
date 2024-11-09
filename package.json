@@ -2,30 +2,35 @@
   "name": "@appspltfrm/solid-element",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "start": "vite --config vite.config.test.ts --force",
-    "build": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json --declaration --emitDeclarationOnly",
-    "install": "node-utils-npm-install-dist"
+    "build": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json --declaration --emitDeclarationOnly"
   },
   "sideEffects": false,
   "devDependencies": {
-    "@co.mmons/node-utils": "github:co-mmons/node-utils",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-decorators": "^7.20.7",
-    "@ionic/core": "^7.0.1",
-    "@rollup/plugin-typescript": "^11.0.0",
-    "@solidjs/router": "^0.8.2",
-    "@types/node": "^18.11.18",
-    "babel-preset-solid": "^1.7.0",
+    "@babel/plugin-proposal-decorators": "^7.25.9",
+    "@ionic/core": "^8.4.0",
+    "@rollup/plugin-typescript": "^12.1.1",
+    "@solidjs/router": "^0.15.1",
+    "@types/node": "^20.17.6",
+    "babel-preset-solid": "^1.9.3",
     "rxjs": "^7.8.0",
-    "sass": "^1.57.1",
-    "typescript": "^4.9.4",
-    "vite": "^4.0.4",
-    "vite-plugin-solid": "^2.5.0"
+    "sass": "^1.80.6",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10",
+    "vite-plugin-solid": "^2.10.2"
   },
   "dependencies": {
-    "solid-js": "^1.7.0",
-    "type-fest": "^2.19.0",
-    "@co.mmons/js-utils": "github:co-mmons/js-utils"
+    "solid-js": "^1.9.3",
+    "type-fest": "^4.26.1",
+    "@appspltfrm/js-utils": "github:appspltfrm/js-utils"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   }
 }

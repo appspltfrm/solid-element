@@ -1,4 +1,4 @@
-import { AssignableType } from "@co.mmons/js-utils/core";
+import { AssignableType } from "@appspltfrm/js-utils/core";
 import { CustomElementBirthmark } from "./customElementBirthmark";
 import { CustomElementInterface } from "./CustomElementInterface";
 import { CustomElementOptions } from "./CustomElementOptions";

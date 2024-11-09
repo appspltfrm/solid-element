@@ -1,4 +1,4 @@
-import { AssignableType } from "@co.mmons/js-utils/core";
+import { AssignableType } from "@appspltfrm/js-utils/core";
 import type { JSX } from "solid-js";
 import { Component } from "solid-js";
 import { CustomElement } from "./customElement";

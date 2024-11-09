@@ -1,5 +1,5 @@
-import { Type } from "@co.mmons/js-utils/core";
-import { Serializer } from "@co.mmons/js-utils/json";
+import { Type } from "@appspltfrm/js-utils/core";
+import { Serializer } from "@appspltfrm/js-utils/json";
 export interface CustomElementReactivePropConfig {
     attribute?: string;
     type?: Type<String> | Type<Number> | Type<Boolean> | Serializer;

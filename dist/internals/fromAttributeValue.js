@@ -1,4 +1,4 @@
-import { Serializer, unserialize } from "@co.mmons/js-utils/json";
+import { Serializer, unserialize } from "@appspltfrm/js-utils/json";
 function fromAttributeValue(value, propDefinition) {
   if (value === null || value === void 0) {
     return value;

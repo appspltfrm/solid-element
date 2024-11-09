@@ -21,7 +21,7 @@ export default defineConfig({
                 ]
             },
             hot: false,
-            typescript: {allowDeclareFields: true}}),
+            extensions: ["typescript"]}),
     ],
 
     server: {

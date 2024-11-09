@@ -1,4 +1,4 @@
-import {AssignableType} from "@co.mmons/js-utils/core";
+import {AssignableType} from "@appspltfrm/js-utils/core";
 import {createRoot, createSignal, getOwner} from "solid-js";
 import {insert} from "solid-js/web";
 import {CustomElement} from "../customElement";

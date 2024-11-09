@@ -1,4 +1,4 @@
-import { Serializer, serialize } from "@co.mmons/js-utils/json";
+import { Serializer, serialize } from "@appspltfrm/js-utils/json";
 function toAttributeValue(value, propDefinition) {
   if (value === null || value === void 0) {
     return value;

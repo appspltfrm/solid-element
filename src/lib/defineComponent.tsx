@@ -1,4 +1,4 @@
-import {AssignableType} from "@co.mmons/js-utils/core";
+import {AssignableType} from "@appspltfrm/js-utils/core";
 import type {JSX, ParentProps} from "solid-js";
 import {children, Component, createMemo, mergeProps, sharedConfig, splitProps} from "solid-js";
 import {getNextElement, spread} from "solid-js/web";

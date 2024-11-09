@@ -1,4 +1,4 @@
-import {AssignableType} from "@co.mmons/js-utils/core";
+import {AssignableType} from "@appspltfrm/js-utils/core";
 import {CustomElement} from "./customElement";
 import {CustomElementBirthmark} from "./customElementBirthmark";
 import {buildFinalClass} from "./internals/buildFinalClass";

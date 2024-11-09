@@ -1,4 +1,4 @@
-import {serialize, Serializer} from "@co.mmons/js-utils/json";
+import {serialize, Serializer} from "@appspltfrm/js-utils/json";
 import {CustomElementReactivePropConfig} from "../CustomElementReactivePropConfig";
 
 export function toAttributeValue(value: any, propDefinition: CustomElementReactivePropConfig) {

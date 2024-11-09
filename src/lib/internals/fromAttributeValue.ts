@@ -1,4 +1,4 @@
-import {Serializer, unserialize} from "@co.mmons/js-utils/json";
+import {Serializer, unserialize} from "@appspltfrm/js-utils/json";
 import {CustomElementReactivePropConfig} from "../CustomElementReactivePropConfig";
 
 export function fromAttributeValue(value: any, propDefinition: CustomElementReactivePropConfig) {

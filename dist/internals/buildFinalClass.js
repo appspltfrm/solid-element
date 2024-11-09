@@ -12,16 +12,14 @@ import { reactivePropsProp } from "./reactivePropsProp.js";
 import { stylesProp } from "./stylesProp.js";
 import { toAttributeName } from "./toAttributeName.js";
 import { toAttributeValue } from "./toAttributeValue.js";
-const _tmpl$ = /* @__PURE__ */ template(`<style>`);
-function _classPrivateFieldLooseBase(receiver, privateKey) {
-  if (!Object.prototype.hasOwnProperty.call(receiver, privateKey)) {
-    throw new TypeError("attempted to use private field on non-instance");
-  }
-  return receiver;
+var _tmpl$ = /* @__PURE__ */ template(`<style>`);
+function _classPrivateFieldLooseBase(e, t) {
+  if (!{}.hasOwnProperty.call(e, t)) throw new TypeError("attempted to use private field on non-instance");
+  return e;
 }
 var id = 0;
-function _classPrivateFieldLooseKey(name) {
-  return "__private_" + id++ + "_" + name;
+function _classPrivateFieldLooseKey(e) {
+  return "__private_" + id++ + "_" + e;
 }
 function buildFinalClass(ElementClass) {
   var _initialized;
@@ -63,7 +61,7 @@ function buildFinalClass(ElementClass) {
         });
         if (template2 && internalClass[stylesProp] && this.renderRoot !== this) {
           template2 = [(() => {
-            const _el$ = _tmpl$();
+            var _el$ = _tmpl$();
             effect(() => _el$.innerHTML = internalClass[stylesProp].join("\n"));
             return _el$;
           })(), template2];
