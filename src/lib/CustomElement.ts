@@ -1,4 +1,4 @@
-import {AssignableType} from "@co.mmons/js-utils/core";
+import {AssignableType} from "@appspltfrm/js-utils/core";
 import {CustomElementBirthmark, customElementBirthmark} from "./customElementBirthmark";
 import {
     CustomElementDisconnectedCallback,

@@ -15,7 +15,7 @@ export default function() {
 
     return <>
 
-        <Test readonly={true}/>
+        <Test readonly={true} state={false}/>
 
         <Show when={false}>
             <Test state={state()} class="aaa" classList={{test: true}} tabIndex="-1" items={items()} readonly={true}>

@@ -18,6 +18,6 @@ export default function() {
     })
 
     return <>
-        <test-element ref={setEl}/>
+        <test-element ref={setEl} state={false}/>
     </>
 }
