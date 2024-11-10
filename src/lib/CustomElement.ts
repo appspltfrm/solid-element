@@ -20,7 +20,9 @@ import {stylesProp} from "./internals/stylesProp";
 
 export type CustomElement = HTMLElement & CustomElementInterface;
 
-export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): {new (): Type & CustomElementInterface} & CustomElementBirthmark {
+export type CustomElementClass<Type extends HTMLElement> = {new (): Type & CustomElementInterface} & CustomElementBirthmark;
+
+export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): CustomElementClass<Type> {
 
     // @ts-ignore
     const BaseType: AssignableType<Type> = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : HTMLElement;
