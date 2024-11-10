@@ -3,6 +3,7 @@ export type { CustomElementComponent, ElementComponent, ElementComponentOptions 
 export type { CustomElementEventMap } from "./CustomElementEventMap";
 export type { CustomElementInterface, CustomElementTemplate, CustomElementPropertyValueChangeCallback, CustomElementDisconnectedCallback } from "./CustomElementInterface";
 export type { CustomElementJSXIntrinsic } from "./CustomElementJSXIntrinsic";
+export type { CustomElementJSXEvents } from "./CustomElementJSXEvents";
 export type { CustomElementOptions } from "./CustomElementOptions";
 export type { CustomElement } from "./customElement";
 export { customElement } from "./customElement";

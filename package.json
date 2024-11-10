@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "install": "node-utils-npm-install-dist",
     "start": "vite --config vite.config.test.ts --force",
     "build": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json --declaration --emitDeclarationOnly"
   },
@@ -26,11 +27,5 @@
     "solid-js": "^1.9.3",
     "type-fest": "^4.26.1",
     "@appspltfrm/js-utils": "github:appspltfrm/js-utils"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    }
   }
 }
