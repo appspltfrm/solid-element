@@ -1,4 +1,5 @@
 import {customElement, CustomElementTemplate, reactive} from "@appspltfrm/solid-element";
+import {getOwner} from "solid-js";
 
 export class TestElement extends customElement({reactive: {otherProp: true}}) {
 

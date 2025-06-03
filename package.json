@@ -2,6 +2,7 @@
   "name": "@appspltfrm/solid-element",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "yarn@4.9.1",
   "type": "module",
   "scripts": {
     "install": "node-utils-npm-install-dist",
@@ -11,22 +12,22 @@
   "sideEffects": false,
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/plugin-proposal-decorators": "^7.25.9",
+    "@babel/plugin-proposal-decorators": "^7.27.1",
     "@ionic/core": "^8.4.0",
-    "@rollup/plugin-typescript": "^12.1.1",
-    "@solidjs/router": "^0.15.1",
-    "@types/node": "^20.17.6",
-    "babel-preset-solid": "^1.9.3",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@solidjs/router": "^0.15.3",
+    "@types/node": "^22.15.29",
+    "babel-preset-solid": "^1.9.6",
     "rxjs": "^7.8.0",
-    "sass": "^1.80.6",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10",
-    "vite-plugin-solid": "^2.10.2"
+    "sass": "^1.89.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vite-plugin-solid": "^2.11.6"
   },
   "dependencies": {
-    "solid-js": "^1.9.3",
-    "type-fest": "^4.26.1",
+    "@appspltfrm/js-utils": "github:appspltfrm/js-utils",
     "@appspltfrm/node-utils": "github:appspltfrm/node-utils",
-    "@appspltfrm/js-utils": "github:appspltfrm/js-utils"
+    "solid-js": "^1.9.7",
+    "type-fest": "^4.41.0"
   }
 }

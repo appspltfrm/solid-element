@@ -1,7 +1,8 @@
-import { children, splitProps, createMemo, sharedConfig, mergeProps } from "solid-js";
+import { children, splitProps, createMemo, sharedConfig, getOwner, mergeProps } from "solid-js";
 import { getNextElement, spread } from "solid-js/web";
 import { defineCustomElement } from "./defineCustomElement.js";
 import { childrenProp } from "./internals/childrenProp.js";
+import { parentOwnerProp } from "./internals/parentOwnerProp.js";
 import { reactivePropsProp } from "./internals/reactivePropsProp.js";
 function defineComponent(tagName, elementTypeOrOptions, componentOptions) {
   const solidElementType = typeof elementTypeOrOptions === "function" && elementTypeOrOptions;
@@ -37,6 +38,7 @@ function defineComponent(tagName, elementTypeOrOptions, componentOptions) {
         const el = sharedConfig.context ? getNextElement() : document.createElement(tagName);
         const noShadow = el.renderRoot === el;
         const childrenPropName = noShadow ? `prop:${childrenProp}` : "children";
+        el[parentOwnerProp] = getOwner();
         spread(el, mergeProps(props, {
           [childrenPropName]: rawChildren
         }), false, false);

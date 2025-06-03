@@ -1,4 +1,4 @@
-import { effect, insert, template } from "solid-js/web";
+import { template, effect, insert } from "solid-js/web";
 import { createRoot, getOwner, createSignal } from "solid-js";
 import { CallbackName } from "./CallbackName.js";
 import { callbacksProp } from "./callbacksProp.js";
@@ -7,6 +7,7 @@ import { classesProp } from "./classesProp.js";
 import { fromAttributeValue } from "./fromAttributeValue.js";
 import { globalStylesProp } from "./globalStylesProp.js";
 import { ownerProp } from "./ownerProp.js";
+import { parentOwnerProp } from "./parentOwnerProp.js";
 import { preValuesProp } from "./preValuesProp.js";
 import { reactivePropsProp } from "./reactivePropsProp.js";
 import { stylesProp } from "./stylesProp.js";
@@ -55,6 +56,7 @@ function buildFinalClass(ElementClass) {
           this.renderRoot.textContent = "";
           dispose();
           delete internalThis[ownerProp];
+          delete internalThis[parentOwnerProp];
         });
         let template2 = super.template({
           children: internalThis[childrenProp]
@@ -67,8 +69,9 @@ function buildFinalClass(ElementClass) {
           })(), template2];
         }
         internalThis[ownerProp] = getOwner();
+        internalThis[ownerProp].name = this.tagName;
         return insert(this.renderRoot, template2);
-      }, lookupContext(this));
+      }, lookupContext(this) || internalThis[parentOwnerProp]);
     }
     async disconnectedCallback() {
       await Promise.resolve();

@@ -1,5 +1,5 @@
 import {AssignableType} from "@appspltfrm/js-utils/core";
-import type {JSX, ParentProps} from "solid-js";
+import {getOwner, JSX, ParentProps} from "solid-js";
 import {children, Component, createMemo, mergeProps, sharedConfig, splitProps} from "solid-js";
 import {getNextElement, spread} from "solid-js/web";
 import {CustomElement} from "./customElement";
@@ -10,6 +10,8 @@ import {CustomElementProps} from "./CustomElementProps";
 import {defineCustomElement} from "./defineCustomElement";
 import {childrenProp} from "./internals/childrenProp";
 import {InternalClass} from "./internals/InternalClass";
+import {InternalInstance} from "./internals/InternalInstance";
+import {parentOwnerProp} from "./internals/parentOwnerProp";
 import {reactivePropsProp} from "./internals/reactivePropsProp";
 
 type DefineElementFn = () => void;
@@ -85,6 +87,8 @@ export function defineComponent(tagName: string, elementTypeOrOptions?: Assignab
                 const el: any = sharedConfig.context ? getNextElement() : document.createElement(tagName);
                 const noShadow = (el as CustomElementInterface).renderRoot === el;
                 const childrenPropName = noShadow ? `prop:${childrenProp}` : "children";
+
+                (el as InternalInstance)[parentOwnerProp] = getOwner();
 
                 spread(el, mergeProps(props, {[childrenPropName]: rawChildren}), false, false);
 

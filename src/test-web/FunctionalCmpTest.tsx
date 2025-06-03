@@ -1,5 +1,4 @@
 import {Component} from "solid-js";
-import {JSX} from "solid-js/h/jsx-runtime";
 
 export interface FunctionalCmpProps {
     /**
@@ -9,6 +8,6 @@ export interface FunctionalCmpProps {
     onChange?: (e: CustomEvent<string>) => void;
 }
 
-export const FunctionalCmpTest: Component<FunctionalCmpProps> = function(props: FunctionalCmpProps): JSX.Element {
+export const FunctionalCmpTest: Component<FunctionalCmpProps> = (props: FunctionalCmpProps) => {
     return <div>Functional component</div>
 }

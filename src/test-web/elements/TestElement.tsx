@@ -5,7 +5,7 @@ import {
     defineComponent,
     reactive
 } from "@appspltfrm/solid-element";
-import {createEffect, onCleanup} from "solid-js";
+import {createEffect, getOwner, onCleanup} from "solid-js";
 import styles from "./TestElement.scss?inline";
 
 export interface TestElementProps {
@@ -46,7 +46,7 @@ export class TestElement extends customElement({renderRoot: "element", styles}) 
 
     template({children}: CustomElementTemplate) {
 
-        onCleanup(() => console.log("cleanup"))
+        onCleanup(() => console.log(`cleanup ${this.state}`))
 
         createEffect(() => console.log("shit:" + this.state))
 

@@ -14,6 +14,7 @@ import {globalStylesProp} from "./globalStylesProp";
 import {InternalClass} from "./InternalClass";
 import {InternalInstance} from "./InternalInstance";
 import {ownerProp} from "./ownerProp";
+import {parentOwnerProp} from "./parentOwnerProp";
 import {preValuesProp} from "./preValuesProp";
 import {reactivePropsProp} from "./reactivePropsProp";
 import {stylesProp} from "./stylesProp";
@@ -64,6 +65,7 @@ export function buildFinalClass(ElementClass: AssignableType<CustomElement> & Cu
                     this.renderRoot.textContent = "";
                     dispose();
                     delete internalThis[ownerProp];
+                    delete internalThis[parentOwnerProp];
                 })
 
                 let template = super.template!({children: internalThis[childrenProp]});
@@ -72,9 +74,10 @@ export function buildFinalClass(ElementClass: AssignableType<CustomElement> & Cu
                 }
 
                 internalThis[ownerProp] = getOwner()!;
+                internalThis[ownerProp]!.name = this.tagName;
 
                 return insert(this.renderRoot, template);
-            }, lookupContext(this));
+            }, lookupContext(this) || internalThis[parentOwnerProp]);
         }
 
         async disconnectedCallback() {

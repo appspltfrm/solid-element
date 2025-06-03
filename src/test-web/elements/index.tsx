@@ -1,4 +1,4 @@
-import {createSignal, Show} from "solid-js";
+import {createSignal, getOwner, Match, Show, Switch} from "solid-js";
 import {Dynamic} from "solid-js/web";
 import Test from "./TestElement";
 import TestNoDecorator from "./TestElementNoDecorator";
@@ -13,42 +13,55 @@ export default function() {
 
     setTimeout(() => setProps({state: "olalal", readonly: true}), 1000);
 
-    return <>
+    return <Switch>
+        <Match when={1 > 0}>
+            <Show when={state() === "a"}>
+                <fieldset>
+                    <legend>Test cleanup</legend>
+                    <Test state={state()}>
+                        <Test state="buuu"/>
+                    </Test>
+                </fieldset>
+            </Show>
+        </Match>
 
-        <Test readonly={true} state={false}/>
+        <Match when={true}>
 
-        <Show when={false}>
-            <Test state={state()} class="aaa" classList={{test: true}} tabIndex="-1" items={items()} readonly={true}>
-                <span>jakiś test solid</span>
-            </Test>
+            <Test readonly={true} state={false}/>
 
-            <button onClick={(ev) => setItems(["1", "2", "3"])}>change items</button>
-            <button onClick={(ev) => setState("b")}>change state</button>
-
-            <fieldset>
-                <legend>Test custom element</legend>
-                <test-element readonly={true} state="test" attr:argh="true" camel-case-prop="sdsd"/>
-            </fieldset>
-
-            <fieldset>
-                <legend>Test element component</legend>
-                <Test state={state()} items={items()} tabindex="-1" readonly={true} onStateChange={(ev) => console.log(ev)} on:statechange={(ev) => console.log("args", ev)}>
-                    <span>jakiś test</span>
+            <Show when={true}>
+                <Test state={state()} class="aaa" classList={{test: true}} tabIndex="-1" items={items()} readonly={true}>
+                    <span>jakiś test solid</span>
                 </Test>
-            </fieldset>
 
-            <fieldset>
-                <legend>Test element no decorator</legend>
-                <TestNoDecorator test="false"/>
+                <button onClick={(ev) => setItems(["1", "2", "3"])}>change items</button>
+                <button onClick={(ev) => setState("b")}>change state</button>
 
-                <Dynamic component={TestNoDecorator} test="false" test-some-id="yes"/>
-            </fieldset>
+                <fieldset>
+                    <legend>Test custom element</legend>
+                    <test-element readonly={true} state="test" attr:argh="true" camel-case-prop="sdsd"/>
+                </fieldset>
 
-            <fieldset>
-                <legend>Test shadow</legend>
-                <TestShadow>ulalla</TestShadow>
-            </fieldset>
-        </Show>
+                <fieldset>
+                    <legend>Test element component</legend>
+                    <Test state={state()} items={items()} tabindex="-1" readonly={true} onStateChange={(ev) => console.log(ev)} on:statechange={(ev) => console.log("args", ev)}>
+                        <span>jakiś test</span>
+                    </Test>
+                </fieldset>
 
-    </>
+                <fieldset>
+                    <legend>Test element no decorator</legend>
+                    <TestNoDecorator test="false"/>
+
+                    <Dynamic component={TestNoDecorator} test="false" test-some-id="yes"/>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Test shadow</legend>
+                    <TestShadow>ulalla</TestShadow>
+                </fieldset>
+            </Show>
+        </Match>
+
+    </Switch>
 }

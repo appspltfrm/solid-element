@@ -4,7 +4,7 @@ import {TestElement} from "./TestElement";
 
 defineCustomElement("test-element", TestElement);
 
-export default function() {
+export default function Index() {
 
     const [el, setEl] = createSignal<HTMLElement>();
 
