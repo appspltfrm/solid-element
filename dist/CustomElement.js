@@ -13,7 +13,7 @@ import { renderRootProp } from "./internals/renderRootProp.js";
 import { stylesProp } from "./internals/stylesProp.js";
 function customElement(baseTypeOrOptions, options) {
   var _a, _b;
-  const BaseType = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : HTMLElement;
+  const BaseType = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : "HTMLElement" in globalThis ? HTMLElement : Object;
   if (typeof baseTypeOrOptions === "object") {
     options = baseTypeOrOptions;
   }

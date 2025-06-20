@@ -25,7 +25,7 @@ export type CustomElementClass<Type extends HTMLElement> = {new (): Type & Custo
 export function customElement<Type extends HTMLElement = HTMLElement>(baseTypeOrOptions?: AssignableType<Type> | CustomElementOptions, options?: CustomElementOptions): CustomElementClass<Type> {
 
     // @ts-ignore
-    const BaseType: AssignableType<Type> = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : HTMLElement;
+    const BaseType: AssignableType<Type> = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : ("HTMLElement" in globalThis ? HTMLElement : Object);
 
     if (typeof baseTypeOrOptions === "object") {
         options = baseTypeOrOptions;
