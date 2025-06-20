@@ -9,7 +9,7 @@ type LazyType = Promise<CustomElementConstructor | {default: CustomElementConstr
 const elements: {[tagName: string]: () => LazyType} = {};
 const loading: {[tagName: string]: Promise<void>} = {};
 
-const observer = new MutationObserver(async (mutations) => {
+const observer = "MutationObserver" in globalThis ? new MutationObserver(async (mutations) => {
 
     // elements that were defined within this call
     let definedElements: string[] = [];
@@ -70,9 +70,9 @@ const observer = new MutationObserver(async (mutations) => {
     }
 
     if (Object.keys(elements).length === 0) {
-        observer.disconnect();
+        observer?.disconnect();
     }
-})
+}) : undefined;
 
 let connected = false;
 
@@ -88,6 +88,6 @@ export function defineLazyCustomElement(tagName: string, loader: () => LazyType)
 
     if (!connected) {
         connected = true;
-        observer.observe(document, {subtree: true, childList: true});
+        observer?.observe(document, {subtree: true, childList: true});
     }
 }

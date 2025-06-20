@@ -2,7 +2,7 @@ import { customElementBirthmark } from "./customElementBirthmark.js";
 import { buildFinalClass } from "./internals/buildFinalClass.js";
 const elements = {};
 const loading = {};
-const observer = new MutationObserver(async (mutations) => {
+const observer = "MutationObserver" in globalThis ? new MutationObserver(async (mutations) => {
   let definedElements = [];
   for (const m of mutations) {
     if (m.addedNodes) {
@@ -47,9 +47,9 @@ const observer = new MutationObserver(async (mutations) => {
     delete loading[e];
   }
   if (Object.keys(elements).length === 0) {
-    observer.disconnect();
+    observer == null ? void 0 : observer.disconnect();
   }
-});
+}) : void 0;
 let connected = false;
 function defineLazyCustomElement(tagName, loader) {
   tagName = tagName.toUpperCase();
@@ -59,7 +59,7 @@ function defineLazyCustomElement(tagName, loader) {
   elements[tagName] = loader;
   if (!connected) {
     connected = true;
-    observer.observe(document, { subtree: true, childList: true });
+    observer == null ? void 0 : observer.observe(document, { subtree: true, childList: true });
   }
 }
 export {
