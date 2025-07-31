@@ -5,7 +5,7 @@ export type {CustomElementInterface, CustomElementTemplate, CustomElementPropert
 export type {CustomElementJSXIntrinsic} from "./CustomElementJSXIntrinsic";
 export type {CustomElementJSXEvents} from "./CustomElementJSXEvents";
 export type {CustomElementOptions} from "./CustomElementOptions";
-export type {CustomElement} from "./customElement";
+export type {CustomElement, CustomElementClass} from "./customElement";
 export {customElement} from "./customElement";
 export {defineCustomElement} from "./defineCustomElement";
 export {defineComponent} from "./defineComponent";
