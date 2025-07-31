@@ -5,11 +5,9 @@
   "packageManager": "yarn@4.9.1",
   "type": "module",
   "scripts": {
-    "install": "node-utils-npm-install-dist",
     "start": "vite --config vite.config.test.ts --force",
     "build": "vite build --config vite.config.lib.ts && tsc -p tsconfig.lib.json --declaration --emitDeclarationOnly"
   },
-  "sideEffects": false,
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-decorators": "^7.27.1",
@@ -26,8 +24,14 @@
   },
   "dependencies": {
     "@appspltfrm/js-utils": "github:appspltfrm/js-utils",
-    "@appspltfrm/node-utils": "github:appspltfrm/node-utils",
     "solid-js": "^1.9.7",
     "type-fest": "^4.41.0"
-  }
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "sideEffects": false
 }
