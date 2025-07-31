@@ -12,7 +12,7 @@ function defineComponent(tagName, elementTypeOrOptions, componentOptions) {
       return;
     } else if (solidElementType) {
       defineCustomElement(tagName, solidElementType);
-    } else if (options == null ? void 0 : options.define) {
+    } else if (options?.define) {
       for (const d of Array.isArray(options.define) ? options.define : [options.define]) {
         d();
       }
@@ -53,17 +53,16 @@ function defineComponent(tagName, elementTypeOrOptions, componentOptions) {
         const [_, uncheckedProps] = splitProps(rawProps, ["children"]);
         const el = sharedConfig.context ? getNextElement() : document.createElement(tagName);
         const props = createMemo(() => {
-          var _a;
           const clone = {};
           const descriptors = Object.getOwnPropertyDescriptors(uncheckedProps);
           for (const key of Object.keys(descriptors)) {
             const fixed = fixPropName(key);
             Object.defineProperty(clone, key !== fixed ? fixed : key, descriptors[key]);
           }
-          (_a = options == null ? void 0 : options.propsHandler) == null ? void 0 : _a.call(options, clone);
+          options?.propsHandler?.(clone);
           return clone;
         });
-        spread(el, mergeProps(options == null ? void 0 : options.initialProps, props, {
+        spread(el, mergeProps(options?.initialProps, props, {
           children: rawChildren ?? []
         }), false, false);
         return el;

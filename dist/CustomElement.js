@@ -1,6 +1,3 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 import { customElementBirthmark } from "./customElementBirthmark.js";
 import { CallbackName } from "./internals/CallbackName.js";
 import { callbacksProp } from "./internals/callbacksProp.js";
@@ -12,7 +9,6 @@ import { reactivePropsProp } from "./internals/reactivePropsProp.js";
 import { renderRootProp } from "./internals/renderRootProp.js";
 import { stylesProp } from "./internals/stylesProp.js";
 function customElement(baseTypeOrOptions, options) {
-  var _a, _b;
   const BaseType = typeof baseTypeOrOptions === "function" ? baseTypeOrOptions : "HTMLElement" in globalThis ? HTMLElement : Object;
   if (typeof baseTypeOrOptions === "object") {
     options = baseTypeOrOptions;
@@ -30,7 +26,8 @@ function customElement(baseTypeOrOptions, options) {
       }
     }
   }
-  const newClass = (_b = class extends BaseType {
+  const newClass = class CustomElementBase extends BaseType {
+    static [customElementBirthmark] = true;
     constructor() {
       super();
       const ownPropNames = Object.getOwnPropertyNames(this).filter((p) => p !== "_$owner");
@@ -38,7 +35,7 @@ function customElement(baseTypeOrOptions, options) {
       let hasPreValue = false;
       for (const propName of ownPropNames) {
         const descriptor = Object.getOwnPropertyDescriptor(this, propName);
-        if (descriptor == null ? void 0 : descriptor.writable) {
+        if (descriptor?.writable) {
           preValues[propName] = descriptor.value;
           hasPreValue = true;
         }
@@ -55,7 +52,7 @@ function customElement(baseTypeOrOptions, options) {
       }
       Object.defineProperty(this, callbacksProp, { value: [], enumerable: false, writable: false });
     }
-    get [(_a = customElementBirthmark, customElementBirthmark)]() {
+    get [customElementBirthmark]() {
       return true;
     }
     get renderRoot() {
@@ -70,7 +67,7 @@ function customElement(baseTypeOrOptions, options) {
     addPropertyValueChangeCallback(callback) {
       return addCallback(this, CallbackName.propertyValueChange, callback);
     }
-  }, __publicField(_b, _a, true), _b);
+  };
   Object.defineProperty(newClass, reactivePropsProp, { value: options.reactive ?? {} });
   Object.defineProperty(newClass, renderRootProp, { value: options.renderRoot });
   Object.defineProperty(newClass, classesProp, { value: options.classes });

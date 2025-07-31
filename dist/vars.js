@@ -1,14 +1,9 @@
-var __defProp = Object.defineProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 import { createMemo, createSignal } from "solid-js";
 import { createStore } from "solid-js/store";
 const allVars = /* @__PURE__ */ new WeakMap();
 class VarValue {
-  constructor() {
-    __publicField(this, "value");
-    __publicField(this, "onDelete");
-  }
+  value;
+  onDelete;
 }
 function assertNotExists(vars, name) {
   if (vars && name in vars) {
@@ -21,8 +16,7 @@ function assertExists(vars, name) {
   }
 }
 function getElementVar(element, name) {
-  var _a;
-  const v = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  const v = allVars.get(element)?.[name];
   if (v instanceof VarValue) {
     return v.value;
   } else {
@@ -40,12 +34,11 @@ function setElementVar(element, name, value, options) {
     vars = {};
     allVars.set(element, vars);
     element.addDisconnectedCallback(() => {
-      var _a;
       const vars2 = allVars.get(element);
       if (vars2) {
         for (const v of Object.values(vars2)) {
           if (v instanceof VarValue) {
-            (_a = v.onDelete) == null ? void 0 : _a.call(v);
+            v.onDelete?.();
           }
         }
       }
@@ -53,7 +46,7 @@ function setElementVar(element, name, value, options) {
     });
   }
   let varValue = value;
-  if (options == null ? void 0 : options.onDelete) {
+  if (options?.onDelete) {
     varValue = new VarValue();
     varValue.value = value;
     varValue.onDelete = options.onDelete;
@@ -61,12 +54,11 @@ function setElementVar(element, name, value, options) {
   vars[name] = varValue;
 }
 function deleteElementVar(element, name) {
-  var _a;
   const vars = allVars.get(element);
   if (vars) {
     let v = vars[name];
     if (v instanceof VarValue) {
-      (_a = v.onDelete) == null ? void 0 : _a.call(v);
+      v.onDelete?.();
       v = v.value;
     }
     delete vars[name];
@@ -96,8 +88,7 @@ function useElementMemo(element, name) {
   };
 }
 function getElementMemo(element, name) {
-  var _a;
-  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let value = allVars.get(element)?.[name];
   if (value instanceof VarValue) {
     value = value.value;
   }
@@ -115,8 +106,7 @@ function createElementSignal(element, name, value) {
   return signal;
 }
 function useElementSignal(element, name) {
-  var _a;
-  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let value = allVars.get(element)?.[name];
   if (value instanceof VarValue) {
     value = value.value;
   }
@@ -127,8 +117,7 @@ function useElementSignal(element, name) {
   return signal;
 }
 function getElementSignal(element, name) {
-  var _a;
-  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let value = allVars.get(element)?.[name];
   if (value instanceof VarValue) {
     value = value.value;
   }
@@ -139,8 +128,7 @@ function getElementSignal(element, name) {
   return signal[0]();
 }
 function setElementSignal(element, name, value) {
-  var _a;
-  let current = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let current = allVars.get(element)?.[name];
   if (current instanceof VarValue) {
     current = current.value;
   }
@@ -160,7 +148,7 @@ function loadElementSignal(element, name, observable, options) {
   const unsub = observable.subscribe({
     next: (data) => signal[1](() => data),
     error: (error) => {
-      if (options == null ? void 0 : options.onError) {
+      if (options?.onError) {
         options.onError(error);
       } else {
         throw error;
@@ -174,8 +162,7 @@ function deleteElementStore(element, name) {
   deleteElementVar(element, name);
 }
 function useElementStore(element, name) {
-  var _a;
-  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let value = allVars.get(element)?.[name];
   if (value instanceof VarValue) {
     value = value.value;
   }
@@ -193,8 +180,7 @@ function useElementStore(element, name) {
   }
 }
 function setElementStore(element, name, newValue) {
-  var _a;
-  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let value = allVars.get(element)?.[name];
   if (value instanceof VarValue) {
     value = value.value;
   }
@@ -206,8 +192,7 @@ function setElementStore(element, name, newValue) {
   }
 }
 function getElementStore(element, name) {
-  var _a;
-  let value = (_a = allVars.get(element)) == null ? void 0 : _a[name];
+  let value = allVars.get(element)?.[name];
   if (value instanceof VarValue) {
     value = value.value;
   }
@@ -232,7 +217,7 @@ function loadElementStore(element, name, value, options) {
   const unsub = value.subscribe({
     next: (data) => store[1](data),
     error: (error) => {
-      if (options == null ? void 0 : options.onError) {
+      if (options?.onError) {
         options.onError(error);
       } else {
         throw error;

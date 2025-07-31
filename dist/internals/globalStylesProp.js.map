@@ -1,1 +1,1 @@
-{"version":3,"file":"globalStylesProp.js","sources":["../../src/lib/internals/globalStylesProp.ts"],"sourcesContent":["export const globalStylesProp = Symbol(\"CustomElement:globalStyles\");\n"],"names":[],"mappings":"AAAa,MAAA,mBAAmB,OAAO,4BAA4B;"}
+{"version":3,"file":"globalStylesProp.js","sources":["../../src/lib/internals/globalStylesProp.ts"],"sourcesContent":["export const globalStylesProp = Symbol(\"CustomElement:globalStyles\");\n"],"names":[],"mappings":"AAAO,MAAM,mBAAmB,OAAO,4BAA4B;"}

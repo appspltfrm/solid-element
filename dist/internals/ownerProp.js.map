@@ -1,1 +1,1 @@
-{"version":3,"file":"ownerProp.js","sources":["../../src/lib/internals/ownerProp.ts"],"sourcesContent":["export const ownerProp = Symbol(\"CustomElement:owner\");\n"],"names":[],"mappings":"AAAa,MAAA,YAAY,OAAO,qBAAqB;"}
+{"version":3,"file":"ownerProp.js","sources":["../../src/lib/internals/ownerProp.ts"],"sourcesContent":["export const ownerProp = Symbol(\"CustomElement:owner\");\n"],"names":[],"mappings":"AAAO,MAAM,YAAY,OAAO,qBAAqB;"}

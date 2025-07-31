@@ -1,1 +1,1 @@
-{"version":3,"file":"parentOwnerProp.js","sources":["../../src/lib/internals/parentOwnerProp.ts"],"sourcesContent":["export const parentOwnerProp = Symbol(\"CustomElement:parentOwner\");\n"],"names":[],"mappings":"AAAa,MAAA,kBAAkB,OAAO,2BAA2B;"}
+{"version":3,"file":"parentOwnerProp.js","sources":["../../src/lib/internals/parentOwnerProp.ts"],"sourcesContent":["export const parentOwnerProp = Symbol(\"CustomElement:parentOwner\");\n"],"names":[],"mappings":"AAAO,MAAM,kBAAkB,OAAO,2BAA2B;"}

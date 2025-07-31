@@ -47,7 +47,7 @@ const observer = "MutationObserver" in globalThis ? new MutationObserver(async (
     delete loading[e];
   }
   if (Object.keys(elements).length === 0) {
-    observer == null ? void 0 : observer.disconnect();
+    observer?.disconnect();
   }
 }) : void 0;
 let connected = false;
@@ -59,7 +59,7 @@ function defineLazyCustomElement(tagName, loader) {
   elements[tagName] = loader;
   if (!connected) {
     connected = true;
-    observer == null ? void 0 : observer.observe(document, { subtree: true, childList: true });
+    observer?.observe(document, { subtree: true, childList: true });
   }
 }
 export {

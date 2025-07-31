@@ -1,1 +1,1 @@
-{"version":3,"file":"stylesProp.js","sources":["../../src/lib/internals/stylesProp.ts"],"sourcesContent":["export const stylesProp = Symbol(\"CustomElement:styles\");\n"],"names":[],"mappings":"AAAa,MAAA,aAAa,OAAO,sBAAsB;"}
+{"version":3,"file":"stylesProp.js","sources":["../../src/lib/internals/stylesProp.ts"],"sourcesContent":["export const stylesProp = Symbol(\"CustomElement:styles\");\n"],"names":[],"mappings":"AAAO,MAAM,aAAa,OAAO,sBAAsB;"}

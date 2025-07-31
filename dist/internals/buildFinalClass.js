@@ -169,7 +169,7 @@ function initReactiveProps(element, elementClass) {
     } else {
       initialValue = element[propName];
     }
-    if (propConfig == null ? void 0 : propConfig.reflect) {
+    if (propConfig?.reflect) {
       reflectAttribute(propConfig, initialValue);
     }
     const [get, set] = createSignal(initialValue);
@@ -178,7 +178,7 @@ function initReactiveProps(element, elementClass) {
       set(newVal) {
         set((oldVal) => {
           if (propName !== childrenProp) {
-            if (propConfig == null ? void 0 : propConfig.reflect) {
+            if (propConfig?.reflect) {
               reflectAttribute(propConfig, newVal);
             }
             firePropChange(propName, newVal, oldVal);

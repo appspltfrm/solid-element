@@ -19,12 +19,12 @@
     "rxjs": "^7.8.0",
     "sass": "^1.89.1",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5",
-    "vite-plugin-solid": "^2.11.6"
+    "vite": "^7.0.6",
+    "vite-plugin-solid": "^2.11.8"
   },
   "dependencies": {
     "@appspltfrm/js-utils": "github:appspltfrm/js-utils",
-    "solid-js": "^1.9.7",
+    "solid-js": "^1.9.0",
     "type-fest": "^4.41.0"
   },
   "exports": {
